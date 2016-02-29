@@ -82,83 +82,61 @@ construct a new RDD from a previous one. In our text file example, flatMap, map 
 
 Download example2.txt :
 
-
 	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example2.txt
-
 
 which has the following content:
 
-1.2 2.1
-1.1 2.2
-1.0 2.3
-1.3 2.2
-1.2 2.2
-3.3 3.2
-3.4 3.1
-3.8 3.6
-3.5 3.9
-3.2 3.2
-
- 
+	1.2 2.1
+	1.1 2.2
+	1.0 2.3
+	1.3 2.2
+	1.2 2.2
+	3.3 3.2
+	3.4 3.1
+	3.8 3.6
+	3.5 3.9
+	3.2 3.2
 
 Check the data with the following:
-
 
 	>>> data = sc.textFile("example2.txt")
 	>>> def show (x): print x
 	>>> data.foreach(show)
 
-
-
 In the following example, after loading and parsing data, we use the K-Means object to cluster the data into five clusters. The number of desired clusters is passed to the algorithm. We then compute Within Set Sum of Squared Error (WSSSE). You can reduce this error measure by increasing de parameter k.
-
 
 	>>> from numpy import array
 	>>> parsedData = data.map(lambda line: array([float(x) for x in line.split(' ')])).cache()
 	>>> parsedData.foreach(show)
 
-
-
 At this point we have an array with the parsed data. With this data, we will train the k-means algorithm and compute the cost. To do that, we need to import some libraries like KMeans and sqrt. We use the KMeans object to cluster the data into two clusters. The number of desired clusters is passed to the algorithm. 
-
-
 
 	>>> from pyspark.mllib.clustering import KMeans
 	>>> clusters = KMeans.train(parsedData, 2, maxIterations=10,
         runs=10, initializationMode="random")
 	>>> clusters.clusterCenters
 
-
 We can predict the cluster to which a new data point would belong just by doing:
-
 
 	>>> clusters.predict([2.2, 2.0])
 	>>> clusters.predict([3.2, 1.9])
 
-
 We can compute Within Set Sum of Squared Error (WSSSE). You can reduce this error measure by increasing k.
-
 
 	>>> from pyspark.mllib.clustering import KMeans
 	>>> from math import sqrt
-
 	>>> def error(point):
     	center = clusters.centers[clusters.predict(point)]
     	return sqrt(sum([x**2 for x in (point - center)]))
-
 	>>> WSSSE = parsedData.map(lambda point: error(point)).reduce(lambda x, y: x + y)
 	>>> print("Within Set Sum of Squared Error = " + str(WSSSE))
-
-
 
 
 ## 6.	Working with text
 
 Download example3.txt :
 
-
 	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example3.txt
-
 
 which has the following content:
 
@@ -187,11 +165,11 @@ Each line of text will represent an independent document (e.g. a headline). We a
 
 At this point, we have the tf variable that contains the frequencies of the document. Now, we will create two clusters with the KMeans algorithm:
 
->>> from pyspark.mllib.clustering import KMeans
->>> from numpy import array
->>> clusters = KMeans.train(tf, 2, 1, 1)
->>> results = documents.map(lambda x : array([x, clusters.predict(hashingTF.transform(x))]))
->>> results.foreach(show)
+	>>> from pyspark.mllib.clustering import KMeans
+	>>> from numpy import array
+	>>> clusters = KMeans.train(tf, 2, 1, 1)
+	>>> results = documents.map(lambda x : array([x, clusters.predict(hashingTF.transform(x))]))
+	>>> results.foreach(show)
 
 
 ## 7.	Working with JSON
