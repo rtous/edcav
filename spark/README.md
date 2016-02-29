@@ -105,13 +105,13 @@ Check the data with the following:
 	>>> def show (x): print x
 	>>> data.foreach(show)
 
-In the following example, after loading and parsing data, we use the K-Means object to cluster the data into five clusters. The number of desired clusters is passed to the algorithm. We then compute Within Set Sum of Squared Error (WSSSE). You can reduce this error measure by increasing de parameter k.
+In the following example, after loading and parsing data, we use the K-Means object to cluster the data into two clusters. Let's first prepare our data. The initial RDD contains lines of text, we will translate each line into an array of floats.
 
 	>>> from numpy import array
 	>>> parsedData = data.map(lambda line: array([float(x) for x in line.split(' ')])).cache()
 	>>> parsedData.foreach(show)
 
-At this point we have an array with the parsed data. With this data, we will train the k-means algorithm and compute the cost. To do that, we need to import some libraries like KMeans and sqrt. We use the KMeans object to cluster the data into two clusters. The number of desired clusters is passed to the algorithm. 
+At this point we have an RDD of vectors. With this data, we will run the k-means algorithm with k=2.
 
 	>>> from pyspark.mllib.clustering import KMeans
 	>>> clusters = KMeans.train(parsedData, 2, maxIterations=10,
@@ -164,6 +164,10 @@ Each line of text will represent an independent document (e.g. a headline). We a
 	>>> tf = hashingTF.transform(documents)
 	>>> def show (x): print x
 	>>> tf.foreach(show)
+
+Instead of using vectors with as many dimensions as different terms appear in the documents, Spark uses the [hashing trick](https://en.wikipedia.org/wiki/Feature_hashing). The frequency of a term is inserted in the position given by the hash of the term. The vector has as many dimensions as possible hash values, so it's extremely sparse and it's stored as a Spark SparseVector (NUM_DIMENSIONS, [POS1, POS2, ...], [VALUE_POS1, VALUE_POS2, ...]). We can get the hash of a term by calling:
+
+	>>> hashingTF.indexOf('messi')
 
 At this point, we have the tf variable that contains the frequencies of the document. Now, we will create two clusters with the KMeans algorithm:
 
