@@ -1,19 +1,21 @@
-# 1.	Introduction
+# Session 1. Big Data Analytics with Spark (2 hours)
+
+## 1.	Introduction
 
 This session is intended to help the student to get started with Apache Spark, a powerful open source framework to process big data with high speed and easy to use.
 
-# 2.	Environment settings
+
+## 2.	Environment settings
 
 In order to be able to perform the different tasks you should:
 
-	1)	Boot the PC with the Linux image (preferable) or Windows 
-	2)	Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
+- Boot the PC with the Linux image (preferable) or Windows 
+- Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
 
-# 3.	Install Spark
+## 3.	Install Spark
 
 Spark requires Java 6 or higher. As we are going to use the Python interactive shell we will need Python 2.6 or higher: 
-
 
 	$ java –version
 	$ python -V
@@ -21,9 +23,7 @@ Spark requires Java 6 or higher. As we are going to use the Python interactive s
 
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
-
 	$ wget http://apache.rediris.es/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.6.tgz
-
 
 Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v1.6.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-1.6.0-bin-hadoop2.6).
 
@@ -54,7 +54,7 @@ Let’s execute the interactive Python shell:
 	>>> 
 
 
-# 4.	Example “word count” application
+## 4.	Example “word count” application
 
 Download example1.txt.
 
@@ -88,7 +88,7 @@ Once created, RDDs offer two types of operations: transformations and actions. T
 construct a new RDD from a previous one. In our text file example, flatMap, map and reduceByKey are transformations. Spark only computes transformations in a lazy fashion, the first time they are used in an action (e.g. first() or saveAsTextFile(…) are actions). 
 
 
-# 5.	Simple clustering example (K-Means)
+## 5.	Simple clustering example (K-Means)
 
 Download example2.txt :
 
@@ -162,7 +162,7 @@ We can compute Within Set Sum of Squared Error (WSSSE). You can reduce this erro
 
 
 
-# 6.	Working with text
+## 6.	Working with text
 
 Download example3.txt :
 
@@ -204,7 +204,7 @@ At this point, we have the tf variable that contains the frequencies of the docu
 >>> results.foreach(show)
 
 
-# 7.	Working with JSON
+## 7.	Working with JSON
 
 Download example4.txt :
 
@@ -237,7 +237,7 @@ First, we will process the data, and store it in a SqlContext:
 Once we have an array with the data, we can repeat the same steps what we did in the previous section, to create the TF and clustering with KMeans.
 
 
-# 8.	Delivery
+## 8.	Delivery
 
 A .txt file containing the output of all the commands have to be delivered through the proper section within http://atenea.upc.edu
 
