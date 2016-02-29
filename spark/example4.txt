@@ -1,0 +1,8 @@
+{"tags":["messi","barcelona","madrid"]}
+{"tags":["barcelona","paella","playa","sangria"]}
+{"tags":["paella","barcelona"]}
+{"tags":["ramblas","paella","ramblas"]}
+{"tags":["messi","madrid"]}
+{"tags":["barcelona","messi"]}
+{"tags":["messi","gol","barcelona"]}
+{"tags":["sangria","paella"]}
