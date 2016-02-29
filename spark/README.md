@@ -97,7 +97,7 @@ which has the following content:
 	3.5 3.9
 	3.2 3.2
 
-![Alt text](/example2.png?raw=true "Optional Title")
+![Alt text](/spark/example2.png?raw=true "Optional Title")
 
 Check the data with the following:
 
