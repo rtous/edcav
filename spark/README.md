@@ -29,7 +29,6 @@ Alternatively (if you want a different version or you are a Windows user) you ca
 
 Once we have the tarball file, we need to uncompress it:
 
-
 	$ tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz
 
 	//Problem binding to localhost (only in room A2S105). Perform the following actions: 
@@ -43,16 +42,7 @@ Let’s execute the interactive Python shell:
 
 
 	$ bin/pyspark
-      ____              __
-     / __/__  ___ _____/ /__
-    _\ \/ _ \/ _ `/ __/  '_/
-   /__ / .__/\_,_/_/ /_/\_\   version 1.6.0
-      /_/
-
-	Using Python version 2.7.5 (default, Mar  9 2014 22:15:05)
-	SparkContext available as sc, HiveContext available as sqlContext.
-	>>> 
-
+ 
 
 ## 4.	Example “word count” application
 
@@ -65,9 +55,9 @@ Download example1.txt.
 which has the following content:
 
 
-En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
-No ha mucho tiempo que vivía un hidalgo de los de lanza en
-astillero, adarga antigua, rocín flaco y galgo corredor.
+	En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
+	No ha mucho tiempo que vivía un hidalgo de los de lanza en
+	astillero, adarga antigua, rocín flaco y galgo corredor.
 
 
 Let’s now count the words with Spark:
