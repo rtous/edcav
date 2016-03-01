@@ -20,7 +20,6 @@ Spark requires Java 6 or higher. As we are going to use the Python interactive s
 	$ java –version
 	$ python -V
 
-
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
 	$ wget http://apache.rediris.es/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.6.tgz
@@ -31,37 +30,28 @@ Once we have the tarball file, we need to uncompress it:
 
 	$ tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz
 
-	//Problem binding to localhost (only in room A2S105). Perform the following actions: 
-		a)	Rename file conf/spark-env.sh.template to conf/spark-env.sh
-		b)	Edit conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
-
-
-
-
 Let’s execute the interactive Python shell:
 
+	$ spark-1.6.0-bin-hadoop2.6/bin/pyspark
 
-	$ bin/pyspark
+Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
+
+		a)	Rename file spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh.template to conf/spark-env.sh
+		b)	Edit spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
-
 ## 4.	Example “word count” application
 
 Download example1.txt.
 
-
 	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example1.txt
 
-
 which has the following content:
-
 
 	En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
 	astillero, adarga antigua, rocín flaco y galgo corredor.
 
-
 Let’s now count the words with Spark:
-
 
 	>>> linesRDD = sc.textFile("example1.txt")
 	>>> countsRDD = linesRDD.flatMap(lambda line: line.split(" ")) \
@@ -70,7 +60,6 @@ Let’s now count the words with Spark:
 	>>> countsRDD.first()
 	>>> countsRDD.saveAsTextFile("out.txt")
 	>>> quit()
-
 
 Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.
 
