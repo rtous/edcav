@@ -20,30 +20,24 @@ Spark requires Java 6 or higher. As we are going to use the Python interactive s
 	$ java –version
 	$ python -V
 
-For the examples we will need numpy. If you don't have it installed let's do a: 
-
-	pip install numpy
-
-(If you don't have pip installed do a "sudo apt-get install python-pip")
-
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
-	$ wget http://apache.rediris.es/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz
+	$ wget http://apache.rediris.es/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.6.tgz
 
-Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.1.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.1.0-bin-hadoop2.7).
+Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v1.6.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-1.6.0-bin-hadoop2.6).
 
 Once we have the tarball file, we need to uncompress it:
 
-	$ tar -xvzf spark-2.1.0-bin-hadoop2.7.tgz
+	$ tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz
 
 Let’s execute the interactive Python shell:
 
-	$ spark-2.1.0-bin-hadoop2.7/bin/pyspark
+	$ spark-1.6.0-bin-hadoop2.6/bin/pyspark
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-		a)	Rename file spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh.template to conf/spark-env.sh
-		b)	Edit spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+		a)	Rename file spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh.template to conf/spark-env.sh
+		b)	Edit spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
@@ -193,15 +187,15 @@ which has the following content (JSON data representing tags for pictures):
 First, we will process the data, and store it in a SqlContext:
 
 	>>> sqlContext = SQLContext(sc)
-	>>> photos = spark.read.json("example4.txt")
+	>>> photos = sqlContext.jsonFile("example4.txt")
 	>>> def show(x): print x
 	>>> photos.foreach(show)
 
 	>>> photos.registerTempTable("pt")
-	>>> tags = spark.sql("select tags from pt where tags is not null")
+	>>> tags = sqlContext.sql("select tags from pt where tags is not null")
 	>>> tags.foreach(show)
 
-	>>> tagsAsArray = tags.rdd.map(lambda x: array(x[0]))
+	>>> tagsAsArray = tags.map(lambda x: array(x[0]))
 
 Once we have an array with the data, we can repeat the same steps what we did in the previous section, to create the TF and clustering with KMeans.
 

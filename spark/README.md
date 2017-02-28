@@ -20,24 +20,30 @@ Spark requires Java 6 or higher. As we are going to use the Python interactive s
 	$ java –version
 	$ python -V
 
+For the examples we will need numpy. If you don't have it installed let's do a: 
+
+	pip install numpy
+
+(If you don't have pip installed do a "sudo apt-get install python-pip")
+
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
-	$ wget http://apache.rediris.es/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.6.tgz
+	$ wget http://apache.rediris.es/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz
 
-Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v1.6.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-1.6.0-bin-hadoop2.6).
+Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.1.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.1.0-bin-hadoop2.7).
 
 Once we have the tarball file, we need to uncompress it:
 
-	$ tar -xvzf spark-1.6.0-bin-hadoop2.6.tgz
+	$ tar -xvzf spark-2.1.0-bin-hadoop2.7.tgz
 
 Let’s execute the interactive Python shell:
 
-	$ spark-1.6.0-bin-hadoop2.6/bin/pyspark
+	$ spark-2.1.0-bin-hadoop2.7/bin/pyspark
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-		a)	Rename file spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh.template to conf/spark-env.sh
-		b)	Edit spark-1.6.0-bin-hadoop2.6/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+		a)	Rename file spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh.template to conf/spark-env.sh
+		b)	Edit spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
@@ -53,10 +59,13 @@ which has the following content:
 
 Let’s now count the words with Spark:
 
+	>>> def show (x): print x
 	>>> linesRDD = sc.textFile("example1.txt")
+	>>> linesRDD.foreach(show)
 	>>> countsRDD = linesRDD.flatMap(lambda line: line.split(" ")) \
              .map(lambda word: (word, 1)) \
              .reduceByKey(lambda a, b: a + b)
+    >>> countsRDD.foreach(show)
 	>>> countsRDD.first()
 	>>> countsRDD.saveAsTextFile("out.txt")
 	>>> quit()
@@ -91,7 +100,6 @@ which has the following content:
 Check the data with the following:
 
 	>>> data = sc.textFile("example2.txt")
-	>>> def show (x): print x
 	>>> data.foreach(show)
 
 In the following example, after loading and parsing data, we use the K-Means object to cluster the data into two clusters. Let's first prepare our data. The initial RDD contains lines of text, we will translate each line into an array of floats.
@@ -143,7 +151,6 @@ which has the following content:
 Let’s start by generating an RDD in which each data element corresponds to a line of our input file.
 
 	>>> documents = sc.textFile("example3.txt").map(lambda line: line.split(" "))
-	>>> def show (x): print x
 	>>> documents.foreach(show)
 
 Each line of text will represent an independent document (e.g. a headline). We are going to use a classic feature vectorization method (Term Frequency, TF) widely used in text mining to transform our lines of text into numeric vectors. For each term in the entire set of documents (the corpus) we will count the occurrences for a given document. The resulting vector (histogram) will represent the document. This way we will be able to cluster them with K-Means. Spark already provides functions to compute TF, so let’s use them:
@@ -151,7 +158,6 @@ Each line of text will represent an independent document (e.g. a headline). We a
 	>>> from pyspark.mllib.feature import HashingTF
 	>>> hashingTF = HashingTF()
 	>>> tf = hashingTF.transform(documents)
-	>>> def show (x): print x
 	>>> tf.foreach(show)
 
 Instead of using vectors with as many dimensions as different terms appear in the documents, Spark uses the [hashing trick](https://en.wikipedia.org/wiki/Feature_hashing). The frequency of a term is inserted in the position given by the hash of the term. The vector has as many dimensions as possible hash values, so it's extremely sparse and it's stored as a Spark SparseVector (NUM_DIMENSIONS, [POS1, POS2, ...], [VALUE_POS1, VALUE_POS2, ...]). We can get the hash of a term by calling:
@@ -166,6 +172,10 @@ At this point, we have the tf variable that contains the frequencies of the docu
 	>>> results = documents.map(lambda x : array([x, clusters.predict(hashingTF.transform(x))]))
 	>>> results.foreach(show)
 
+Given a new document, we can check to which cluster it belongs:
+
+	>>> clusters.predict(hashingTF.transform("paella ramblas ramblas".split(" ")))
+	>>> clusters.predict(hashingTF.transform("messi madrid barcelona".split(" ")))
 
 ## 7.	Working with JSON
 
@@ -184,21 +194,17 @@ which has the following content (JSON data representing tags for pictures):
 	{"tags":["messi","gol","barcelona"]}
 	{"tags":["sangria","paella"]}
 
-First, we will process the data, and store it in a SqlContext:
+First, we will process the data:
 
-	>>> sqlContext = SQLContext(sc)
-	>>> photos = sqlContext.jsonFile("example4.txt")
-	>>> def show(x): print x
-	>>> photos.foreach(show)
-
-	>>> photos.registerTempTable("pt")
-	>>> tags = sqlContext.sql("select tags from pt where tags is not null")
-	>>> tags.foreach(show)
-
-	>>> tagsAsArray = tags.map(lambda x: array(x[0]))
+	>>> photosMetadata = spark.read.json("example4.txt")
+	>>> photosMetadata.foreach(show)
+	>>> photosMetadataAsArray = photosMetadata.rdd.map(lambda x: array(x[0]))
+	>>> photosMetadataAsArray.foreach(show)
 
 Once we have an array with the data, we can repeat the same steps what we did in the previous section, to create the TF and clustering with KMeans.
 
+	>>> tf = hashingTF.transform(photosMetadataAsArray)
+	...
 
 ## 8.	Delivery
 
