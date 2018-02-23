@@ -28,22 +28,26 @@ For the examples we will need numpy. If you don't have it installed let's do a:
 
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
-	$ wget http://apache.rediris.es/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz
+	$ wget http://apache.rediris.es/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
 
-Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.1.0.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.1.0-bin-hadoop2.7).
+Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.2.1.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.2.1-bin-hadoop2.7).
 
 Once we have the tarball file, we need to uncompress it:
 
-	$ tar -xvzf spark-2.1.0-bin-hadoop2.7.tgz
+	$ tar -xvzf spark-2.2.1-bin-hadoop2.7.tgz
 
 Let’s execute the interactive Python shell:
 
-	$ spark-2.1.0-bin-hadoop2.7/bin/pyspark
+	$ spark-2.2.1-bin-hadoop2.7/bin/pyspark
+
+Exit the Python shell:
+
+	>>>quit()
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-		a)	Rename file spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh.template to conf/spark-env.sh
-		b)	Edit spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+		a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to conf/spark-env.sh
+		b)	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
@@ -57,7 +61,7 @@ which has the following content:
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
 	astillero, adarga antigua, rocín flaco y galgo corredor.
 
-Let’s now count the words with Spark:
+Enter the Python shell again as we did before. Let’s now count the words with Spark:
 
 	>>> def show (x): print x
 	>>> linesRDD = sc.textFile("example1.txt")
@@ -67,13 +71,14 @@ Let’s now count the words with Spark:
              .reduceByKey(lambda a, b: a + b)
     >>> countsRDD.foreach(show)
 	>>> countsRDD.first()
-	>>> countsRDD.saveAsTextFile("out.txt")
+	>>> countsRDD.saveAsTextFile("results")
 	>>> quit()
+
+Finally, check the contents of output files within the "results" directory.
 
 Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.
 
-Once created, RDDs offer two types of operations: transformations and actions. Transformations
-construct a new RDD from a previous one. In our text file example, flatMap, map and reduceByKey are transformations. Spark only computes transformations in a lazy fashion, the first time they are used in an action (e.g. first() or saveAsTextFile(…) are actions). 
+Once created, RDDs offer two types of operations: transformations and actions. Transformations construct a new RDD from a previous one. In our text file example, flatMap, map and reduceByKey are transformations. Spark only computes transformations in a lazy fashion, the first time they are used in an action (e.g. first() or saveAsTextFile(…) are actions). 
 
 
 ## 5.	Simple clustering example (K-Means)
