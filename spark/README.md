@@ -52,23 +52,25 @@ You should see this:
 	Using Python version 2.7.10 (default, Jul 15 2017 17:16:57)
 	SparkSession available as 'spark'.
 	>>> 
-	
+
 You can exit the Python shell just typing:
 
 	>>>quit()
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-		a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to conf/spark-env.sh
+		a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
 		b)	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
-Download example1.txt.
+Download example1.txt:
+
+ 	(you may find convenient to open another terminal window)
 
 	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example1.txt
 
-which has the following content:
+which has the following content (accents removed to avoid encoding problems):
 
 	En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
@@ -77,6 +79,9 @@ which has the following content:
 Enter the Python shell again as we did before. Let’s now count the words with Spark:
 
 	>>> def show (x): print x
+
+	(type return again when you see "...")
+
 	>>> linesRDD = sc.textFile("example1.txt")
 	>>> linesRDD.foreach(show)
 	>>> countsRDD = linesRDD.flatMap(lambda line: line.split(" ")) \
@@ -147,7 +152,6 @@ We can compute Within Set Sum of Squared Error (WSSSE). You can reduce this erro
     	return sqrt(sum([x**2 for x in (point - center)]))
 	>>> WSSSE = parsedData.map(lambda point: error(point)).reduce(lambda x, y: x + y)
 	>>> print("Within Set Sum of Squared Error = " + str(WSSSE))
-
 
 ## 6.	Working with text
 
@@ -222,7 +226,47 @@ First, we will process the data:
 Once we have an array with the data, we can repeat the same steps what we did in the previous section, to create the TF and clustering with KMeans.
 
 	>>> tf = hashingTF.transform(photosMetadataAsArray)
-	...
+	... (do the same you did in Section 6 to cluster the data)
+
+## 8.	Simple linear regression example
+
+Download example5.txt :
+
+	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example5.txt
+
+which has the following content:
+
+	4.49 1:2.45
+	6.25 1:3.83
+	2.43 1:1.50 
+	9.78 1:5.03 
+	7.96 1:4.06
+
+This file uses the libsvm data format (label dim:value dim:value...). Let's load the data:
+
+	>>> data = spark.read.format("libsvm").load("example5.txt")
+
+We can split the data into trainingData and testData.
+
+	>>> (trainingData, testData) = data.randomSplit([0.7, 0.3])
+
+Let's compute the regression model:
+
+	>>> from pyspark.ml.regression import LinearRegression
+	>>> lr = LinearRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
+	>>> lrModel = lr.fit(trainingData)
+	>>> print("Coefficients: %s" % str(lrModel.coefficients))
+	>>> print("Intercept: %s" % str(lrModel.intercept))
+
+Let's use the model to do some predictions
+
+	>>> predictions = lrModel.transform(testData)
+	>>> predictions.foreach(show)
+
+We can summarize the model over the training set and print out some metrics:
+
+	>>> trainingSummary = lrModel.summary
+	>>> print("RMSE: %f" % trainingSummary.rootMeanSquaredError)
 
 ## 8.	Delivery
 
