@@ -40,7 +40,20 @@ Let’s execute the interactive Python shell:
 
 	$ spark-2.2.1-bin-hadoop2.7/bin/pyspark
 
-Exit the Python shell:
+You should see this:
+
+	Welcome to
+	      ____              __
+	     / __/__  ___ _____/ /__
+	    _\ \/ _ \/ _ `/ __/  '_/
+	   /__ / .__/\_,_/_/ /_/\_\   version 2.2.1
+	      /_/
+
+	Using Python version 2.7.10 (default, Jul 15 2017 17:16:57)
+	SparkSession available as 'spark'.
+	>>> 
+	
+You can exit the Python shell just typing:
 
 	>>>quit()
 
