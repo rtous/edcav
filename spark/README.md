@@ -59,8 +59,9 @@ You can exit the Python shell just typing:
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-		a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
-		b)	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+	a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
+	
+	b)	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
@@ -228,7 +229,7 @@ Once we have an array with the data, we can repeat the same steps what we did in
 	>>> tf = hashingTF.transform(photosMetadataAsArray)
 	... (do the same you did in Section 6 to cluster the data)
 
-## 8.	Simple linear regression example
+## 8.	Simple regression example (Linear Regression)
 
 Download example5.txt :
 
@@ -268,7 +269,43 @@ We can summarize the model over the training set and print out some metrics:
 	>>> trainingSummary = lrModel.summary
 	>>> print("RMSE: %f" % trainingSummary.rootMeanSquaredError)
 
-## 8.	Delivery
+## 9.	Simple classification example (Linear SVM)
+
+Download example6.txt :
+
+	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example6.txt
+
+which has the following content:
+
+	0 1:1.45 2:1.45
+	0 1:1.83 2:1.45
+	0 1:1.50 2:1.45
+	1 1:5.03 2:4.45 
+	1 1:4.06 2:3.45
+
+Let's load the data:
+
+	>>> data = spark.read.format("libsvm").load("example6.txt")
+
+And split the data into trainingData and testData.
+
+	>>> (trainingData, testData) = data.randomSplit([0.7, 0.3])
+
+	>>> from pyspark.ml.classification import LinearSVC
+	>>> lsvc = LinearSVC(maxIter=10, regParam=0.1)
+	>>> lsvcModel = lsvc.fit(trainingData)
+	>>> print("Coefficients: " + str(lsvcModel.coefficients))
+	>>> print("Intercept: " + str(lsvcModel.intercept))
+	>>> predictions = lrModel.transform(testData)
+	>>> predictions.foreach(show)
+
+	val df = Seq((1,1,1), (2,2,2), (3,3,3)).toDF("first_column", "second_column", "third_column")
+	df = sqlContext.createDataFrame([("foo", 1), ("bar", 2), ("baz", 3)], ('k', 'v'))
+df.show(n=2)
+
+Download example5.txt :
+
+## 10.	Delivery
 
 A .txt file containing the output of all the commands have to be delivered through the proper section within http://atenea.upc.edu
 
