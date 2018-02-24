@@ -289,20 +289,15 @@ Let's load the data:
 And split the data into trainingData and testData.
 
 	>>> (trainingData, testData) = data.randomSplit([0.7, 0.3])
+	>>> trainingData.show()
 
 	>>> from pyspark.ml.classification import LinearSVC
 	>>> lsvc = LinearSVC(maxIter=10, regParam=0.1)
 	>>> lsvcModel = lsvc.fit(trainingData)
 	>>> print("Coefficients: " + str(lsvcModel.coefficients))
 	>>> print("Intercept: " + str(lsvcModel.intercept))
-	>>> predictions = lrModel.transform(testData)
-	>>> predictions.foreach(show)
-
-	val df = Seq((1,1,1), (2,2,2), (3,3,3)).toDF("first_column", "second_column", "third_column")
-	df = sqlContext.createDataFrame([("foo", 1), ("bar", 2), ("baz", 3)], ('k', 'v'))
-df.show(n=2)
-
-Download example5.txt :
+	>>> predictions = lsvcModel.transform(testData)
+	>>> predictions.show()
 
 ## 10.	Delivery
 
