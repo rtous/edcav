@@ -59,9 +59,8 @@ You can exit the Python shell just typing:
 
 Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
 
-a)	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
-
-b)	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+*	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
+*	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
  
 ## 4.	Example “word count” application
 
