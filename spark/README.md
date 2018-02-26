@@ -90,7 +90,6 @@ Enter the Python shell again as we did before. Let’s now count the words with 
     >>> countsRDD.foreach(show)
 	>>> countsRDD.first()
 	>>> countsRDD.saveAsTextFile("results")
-	>>> quit()
 
 Finally, check the contents of output files within the "results" directory.
 
