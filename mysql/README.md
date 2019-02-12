@@ -34,7 +34,7 @@ Within a query window of the MySQL Workbench (the one that appears after connect
 
 The first thing you must do is creating the tables that comprise your database. The creation and destruction of tables is done via the SQL CREATE and DROP commands. For example, if we want to create the table:
 
-	clients(__id_cli, name_cli, nif, adress, city, phone)
+*clients(__id_cli__, name_cli, nif, adress, city, phone)*
 
 ## ANNEX 1.	Accessing the EDCAV’s MySQL server from your own computer
 
