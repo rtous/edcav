@@ -36,6 +36,57 @@ The first thing you must do is creating the tables that comprise your database. 
 
 *clients(__id_cli__, name_cli, nif, adress, city, phone)*
 
+We have to execute:
+
+	CREATE TABLE clients(
+		id_cli INTEGER,
+		name_cli CHAR(30) NOT NULL,
+		nif CHAR (9),
+		adress CHAR(30),
+		city CHAR(20),
+		phone INTEGER,
+		PRIMARY KEY (id_cli),
+		UNIQUE (nif)
+	) ENGINE = INNODB;
+
+Save the command into a file creates.sql.
+
+Now create the table:
+
+*projects(__id_proj__, name_proj, price, date_start, date_prev_end date_end, id_client)*
+
+Into the same file, below the ‘clients’ CREATE, copy the following:
+
+	CREATE TABLE projects(
+		id_proj INTEGER,
+		name_proj CHAR(20),
+		price REAL,
+		date_start DATE,
+		date_prev_end DATE,
+		date_end DATE,
+		id_client INTEGER,
+		PRIMARY KEY (id_proj),
+		FOREIGN KEY (id_client) REFERENCES clients (id_cli)
+	) ENGINE = INNODB;
+
+Note that the order in which CREATEs appear is important because 'projects' references ‘clients’. Usually when you create a DB, you also create a DROPs file to facilitate the deletion of all tables. It can also be created within the same CREATEs file. At the beginning of the file (before the CREATEs) copy the following (the order is important, because MySQL is not going to leave us to delete a
+referenced table):
+
+	DROP TABLE IF EXISTS projects;
+	DROP TABLE IF EXISTS clients;
+
+## 6. Creating a DB, now your turn 	
+
+Now, create yourself the following tables:
+
+*departments(__name_dpt__, __city_dpt__, phone)*
+
+*employees(__id_empl__, name_empl, surname_empl, sou, name_dpt, city_dpt, num_proj)*
+- name_dpt, city_dpt ->foreign key: departments(name_dpt, city_dpt)
+- num_proj ->foreign key: projects (id_proj)
+
+It is important that you save a file with your CREATEs and DROPs. Name it creates.sql.
+
 ## ANNEX 1.	Accessing the EDCAV’s MySQL server from your own computer
 
 The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
