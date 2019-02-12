@@ -156,7 +156,7 @@ The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addr
 
 ### A1.3 (your own computer + local MySQL server) Working with Docker
 
-If you want to work with your personal computer and you don't want to mess up your OS you may find convenient to work over Docker. You need first to install Docker in your machine. In Ubuntu you can do it this way:
+If you want to work with your personal computer and a local MySQL server, but you don't want to mess up your OS, you may find convenient to work over Docker. You need first to install Docker in your machine. In Ubuntu you can do it this way:
 
     sudo apt-get update
     wget -qO- https://get.docker.com/ | sh
