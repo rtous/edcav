@@ -142,11 +142,11 @@ The files creates.sql, inserts.sql and the answers have to be delivered in a sin
 
 ## ANNEX 1.	Alternative setups
 
-### A1.1 (A2S105 PCs) Accessing a local MySQL server from A2S105 PCs
+### A1.1 (A2S105 PCs + local MySQL server) Accessing a local MySQL server from A2S105 PCs
 
 In case that you cannot access the EDCAV’s server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
 
-### A1.2 (your own computer) Accessing the server through a VPN
+### A1.2 (your own computer + edcav.upc.es server) Accessing the server through a VPN
 
 The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
 
@@ -154,7 +154,7 @@ The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addr
 
 (WARNING: The latest version of MySQL Workbench is not compatible with the course server, you need to download version 5.2.47 or older from [here](https://dev.mysql.com/downloads/workbench/))
 
-### A1.3 (your own computer) Working with Docker
+### A1.3 (your own computer + local MySQL server) Working with Docker
 
 If you want to work with your personal computer and you don't want to mess up your OS you may find convenient to work over Docker. You need first to install Docker in your machine. In Ubuntu you can do it this way:
 
