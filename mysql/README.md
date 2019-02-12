@@ -148,11 +148,11 @@ In case that you cannot access the EDCAV’s server you may connect to a MySQL s
 
 ### A1.2 (your own computer) Accessing the server through a VPN
 
+The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
+
 (WARNING: It seems that the current information provided by ETSETB is wrong for OSX)
 
-(WARNING: The latest version of MySQL Workbench is not compatible with the course server, you need to download a version 5.2.47 from [here](https://dev.mysql.com/downloads/workbench/))
-
-The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
+(WARNING: The latest version of MySQL Workbench is not compatible with the course server, you need to download version 5.2.47 or older from [here](https://dev.mysql.com/downloads/workbench/))
 
 ### A1.3 (your own computer) Working with Docker
 
