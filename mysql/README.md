@@ -21,8 +21,7 @@ Click the "New Connection" option and specify the connection parameters. We have
 
 ![alt text](mysqlworkbench.png "MySQL Workbench")
 
-(NOTE: If, for any reason, you cannot access this server this way, ANNEX 1 describes some alternatives.)
-
+(NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer [ANNEX 1](#ANNEX-1.-Alternative-setups) describes some alternatives.)
 
 ## 4. How to change your password
 
@@ -138,12 +137,59 @@ Now that you have tables and rows you can execute the SQL query commands you hav
 
 ## 10.	Delivery
 
-The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu.  within http://atenea.upc.edu
+The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
 
 
-## ANNEX 1.	Accessing the EDCAV’s MySQL server from your own computer
+## ANNEX 1.	Alternative setups
+
+### A1.1 (A2S105 PCs) Accessing a local MySQL server from A2S105 PCs
+
+In case that you cannot access the EDCAV’s server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
+
+### A1.2 (your own computer) Accessing the server through a VPN
+
+(WARNING: It seems that the current information provided by ETSETB is wrong for OSX)
+
+(WARNING: The latest version of MySQL Workbench is not compatible with the course server, you need to download a version 5.2.47 from [here](https://dev.mysql.com/downloads/workbench/))
 
 The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
 
-TODO
+### A1.3 (your own computer) Working with Docker
+
+If you want to work with your personal computer and you don't want to mess up your OS you may find convenient to work over Docker. You need first to install Docker in your machine. In Ubuntu you can do it this way:
+
+    sudo apt-get update
+    wget -qO- https://get.docker.com/ | sh
+    sudo usermod -aG docker $(whoami)
+
+It's necessary to LOGOUT to let the usermod command have effect.
+
+Windows and OSX installation procedures can be found [here](https://docs.docker.com/install/).
+
+Once you have Docker up and running you can pull and run an msql-server image:
+
+	docker pull mysql/mysql-server:latest
+	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
+
+In order to know which root password was given do:
+
+	docker logs drcav1 
+
+And take notice of the root password. Then execute:
+
+	docker exec -it drcav1 mysql -uroot -p
+
+And type:
+
+	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'edcav';
+	mysql>CREATE DATABASE IF NOT EXISTS edcav1;
+	mysql>CREATE USER 'edcav1'@'%' IDENTIFIED BY 'edcav';
+	mysql>GRANT ALL PRIVILEGES ON edcav1.* to 'edcav1'@'%';
+	mysql>exit;
+
+Then you can run MySQL Workbench and connect to the server:
+
+![alt text](mysqlworkbench.png "MySQL Workbench")
+
+(WARNING: Don't try to use the old MySQL Workbench version, e.g. 5.2.47, with the mysql Docker container, it's not going to work.)
 
