@@ -87,6 +87,27 @@ Now, create yourself the following tables:
 
 It is important that you save a file with your CREATEs and DROPs. Name it creates.sql.
 
+## 7. Inserting values
+
+Now your DB has tables, but they still do not contain any row. The SQL command for inserting values is INSERT. For instance:
+
+	SET SQL_SAFE_UPDATES=0;
+
+	DELETE FROM departments;
+	INSERT INTO departments VALUES ("marketing", "Barcelona", 936745010);
+	INSERT INTO departments VALUES ("administration", "Barcelona", 936745011);
+	INSERT INTO departments VALUES ("marketing", "Madrid", 936745012);
+	INSERT INTO departments VALUES ("administration", "Madrid", 936745013);
+
+In a new query copy and execute the previous commands. The DELETE command allows us to reexecute again the query without errors. Within the same file, after the previous lines, add the necessary INSERTs and DELETEs to fill with three or four rows all the tables that we created before. You should follow these rules:
+
+- You have to respect the specified table constraints
+- Dates have the format: “yyyy-mm-dd”
+- Order in which you insert rows matters (you cannot reference a department that still does
+not exist)
+
+Save the file with the name inserts.sql.
+
 ## ANNEX 1.	Accessing the EDCAV’s MySQL server from your own computer
 
 The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
