@@ -189,7 +189,7 @@ And type:
 
 Then you can run MySQL Workbench and connect to the server:
 
-![alt text](mysqlworkbench.png "MySQL Workbench")
+![alt text](mysqlworkbench_docker.png "MySQL Workbench")
 
 (WARNING: Don't try to use the old MySQL Workbench version, e.g. 5.2.47, with the mysql Docker container, it's not going to work.)
 
