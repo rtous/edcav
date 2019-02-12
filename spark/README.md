@@ -1,4 +1,4 @@
-# Session 1. Big Data Analytics with Spark (2 hours)
+# Session 2. Big Data Analytics with Spark (2 hours)
 
 ## 1.	Introduction
 
