@@ -108,9 +108,42 @@ not exist)
 
 Save the file with the name inserts.sql.
 
+### 7.1 About foreign key errors (errno = 105)
+
+If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the EDCAV server). If you cannot find the way to solve the problem you may ask the
+lab teacher (she/he have the enough privileges to execute that query).
+
+### 7.2 Alternative INSERT syntax
+
+	INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+
+
+## 8. SQL Queries
+Now that you have tables and rows you can execute the SQL query commands you have learned during the theory classes. Specify the SQL statement that will allow you to obtain the following results. Write your answers in a text file that you deliver to the professor.
+
+a) Show all data about all employees
+
+	SELECT * FROM employees;
+
+b) Show the names of all the clients
+c) Show the name, surname and salary of all the employees with a salary > 1000
+d) Show all data about the departments from Madrid
+e) Show the name and surname of employees that work at the “administration” department in Madrid.
+f) Show the number of clients in Madrid.
+g) Show the employees that are not assigned to any project.
+h) For each different name appearing within the employees table (e.g. ‘Maria’) show how many employees have that name.
+i) For all employees with a department assigned, show their name and surname, and also the phone number of the department
+j) For all employees (with or without a department assigned), show their name and surname and, if they are assigned to a department, show also the phone number of the department
+
+
+## 10.	Delivery
+
+The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu.  within http://atenea.upc.edu
+
+
 ## ANNEX 1.	Accessing the EDCAV’s MySQL server from your own computer
 
 The MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In order to access it from your own laptop you can stablish a VPN following the steps [here](https://telecos.upc.edu/ca/els-serveis/serveis-informatics/acces/connexio-vpn).
 
-
+TODO
 
