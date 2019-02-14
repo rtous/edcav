@@ -23,11 +23,17 @@ Click the "New Connection" option and specify the connection parameters. We have
 
 (NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer the ANNEX 1 describes some alternatives.)
 
-## 4. How to change your password
+### 3.1. How to change your password
 
 Within a query window of the MySQL Workbench (the one that appears after connecting to the server) type the following (replace the X for your DB number) and press the execute icon:
 
 	SET PASSWORD FOR ‘edcavX’ = PASSWORD (‘mypassword’);
+
+## 4. Selecting the database to work with
+
+Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type (replacing X for your database number):
+
+	USER edcavX;
 
 ## 5. Creating tables, first examples
 
@@ -38,14 +44,24 @@ The first thing you must do is creating the tables that comprise your database. 
 We have to execute:
 
 	CREATE TABLE  users(
-		username VARCHAR(100) NOT NULL,
+		username VARCHAR(100),
 		password VARCHAR(100),
 		email VARCHAR(100),
 		PRIMARY KEY (username),
 		UNIQUE (email)
-	); ENGINE = INNODB;
+	) ENGINE = INNODB;
 
-Save the command into a file creates.sql.
+*The PRIMARY KEY enforces that the field username contains unique and not null values. We also specify a UNIQUE for the email field as we want it to be an alternate key.*
+
+It is convenient to save all the CREATEs that we use to build our database in order to be able to re-create it if necessary. Copy the previous CREATE command into a text file named creates.sql (you can edit it with any text editor).  
+
+You can list the tables in your database with:
+
+	SHOW TABLES;
+
+And get details about a table with:
+
+	DESC users;
 
 Now create the table:
 
@@ -55,7 +71,7 @@ Now create the table:
 Into the same file, below the ‘users’ CREATE, copy the following:
 
 	CREATE TABLE  photos (
-		filename VARCHAR(100) NOT NULL,
+		filename VARCHAR(100),
 		title VARCHAR(100),
 		description VARCHAR(300),
 		width INTEGER,
@@ -65,14 +81,25 @@ Into the same file, below the ‘users’ CREATE, copy the following:
 		longitude DECIMAL (10,8),
 		username VARCHAR(100) NOT NULL,
 		PRIMARY KEY (filename),
-		CONSTRAINT photo_fk_1 FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE
+		CONSTRAINT photo_fk_1 FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 	) ENGINE = INNODB;
 
-Note that the order in which CREATEs appear is important because 'projects' references ‘clients’. Usually when you create a DB, you also create a DROPs file to facilitate the deletion of all tables. It can also be created within the same CREATEs file. At the beginning of the file (before the CREATEs) copy the following (the order is important, because MySQL is not going to leave us to delete a
-referenced table):
+*The FOREIGN KEY enforces that the field username references an existing row in the users table. If you get the error 150 that means that the definition of the FOREIGN KEY is wrong (e.g. the referenced table and/or the referenced field does not exist.*
+
+Now copy the photos' CREATE command below the users' CREATE command in your creates.sql file. Note that the order in which CREATEs appear is important because 'photos' references 'users'.
+
+### Adding DROP commands to your creates.sql file
+
+If you want to perform changes in the definition of a table you will need to delete the table before issuing a new CREATE command. For instance:
+
+	DROP TABLE photos;
+
+Usually, it is convenient to include DROPs for all the tables at the beginning of your creates.sql file. This way, if you make changes to your CREATEs, you can execute all the contents of the creates.sql to re-create the entire database even if the tables already exist. At the beginning of the creates.sql file (before the CREATEs) copy the following (the order is important, because MySQL is not going to leave us to delete a referenced table):
 
 	DROP TABLE IF EXISTS photos;
 	DROP TABLE IF EXISTS users;
+
+*Notice that the order of the DROPs is inverse with respect to the order to the CREATEs.*
 
 ## 6. Creating a DB, now your turn 	
 
