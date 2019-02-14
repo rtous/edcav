@@ -136,16 +136,19 @@ If your CREATEs were correctly specified, there are some INSERTs that MySQL will
 **Edit a new text file named inserts.sql** and add there the necessary INSERTs and DELETEs to fill the tables with the following values (execute the commands when finished):
 
 Users:
+
 	"user1", "1234", "user1@gmail.com"
 	"user2", "1234", "user2@gmail.com"
 	"user3", "1234", "user3@gmail.com"
 
 Photos:
+
 	"photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
 	"photo2.jpg", "photo 2", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
 	"photo3.jpg", "photo 3", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2"
 
 Likes:
+
 	"user2", "photo1.jpg"
 	"user2", "photo2.jpg"
 
