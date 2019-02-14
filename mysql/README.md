@@ -53,7 +53,7 @@ We have to execute:
 
 *The PRIMARY KEY enforces that the field username contains unique and not null values. We also specify a UNIQUE for the email field as we want it to be an alternate key.*
 
-It is convenient to save all the CREATEs that we use to build our database in order to be able to re-create it if necessary. Copy the previous CREATE command into a text file named creates.sql (you can edit it with any text editor).  
+It is convenient to save all the CREATEs that we use to build our database in order to be able to re-create it if necessary. **Copy the previous CREATE command into a text file named creates.sql** (you can edit it with any text editor).  
 
 You can list the tables in your database with:
 
