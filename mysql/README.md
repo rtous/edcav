@@ -21,7 +21,7 @@ Click the "New Connection" option and specify the connection parameters. We have
 
 ![alt text](mysqlworkbench.png "MySQL Workbench")
 
-(NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer [ANNEX 1][1] describes some alternatives.)
+(NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer the ANNEX 1 describes some alternatives.)
 
 ## 4. How to change your password
 
@@ -135,7 +135,7 @@ Now that you have tables and rows you can execute the SQL query commands you hav
 The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
 
 
-## ANNEX 1.	Alternative setups {#annex1}
+## ANNEX 1.	Alternative setups
 
 ### A1.1 (A2S105 PCs + local MySQL server) Accessing a local MySQL server from A2S105 PCs
 
