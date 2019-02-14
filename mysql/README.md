@@ -21,7 +21,7 @@ Click the "New Connection" option and specify the connection parameters. We have
 
 ![alt text](mysqlworkbench.png "MySQL Workbench")
 
-(NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer [ANNEX 1][#annex1] describes some alternatives.)
+(NOTE: the MySQL Community Server at edcav.upc.es only can be accessed from UPC IP addresses. In case you want to work from your own computer [ANNEX 1][1] describes some alternatives.)
 
 ## 4. How to change your password
 
