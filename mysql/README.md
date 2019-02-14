@@ -113,9 +113,9 @@ Now, create yourself the following tables:
 - username ->foreign key: users(username)
 - filename ->foreign key: photos(filename)
 
-It is important that you save a file with your CREATEs and DROPs. Name it creates.sql.
+Add the resulting CREATEs, and their corresponding DROPs, to your creates.sql file.
 
-## 7. Inserting values
+## 7. Inserting values and checking constraints
 
 Now your DB has tables, but they still do not contain any row. The SQL command for inserting values is INSERT. For instance:
 
@@ -123,43 +123,102 @@ Now your DB has tables, but they still do not contain any row. The SQL command f
 
 	DELETE FROM users;
 	INSERT INTO users VALUES ("user1", "1234", "user1@gmail.com");
-	INSERT INTO users VALUES ("user2", "1234", "user2@gmail.com");
-	INSERT INTO users VALUES ("user3", "1234", "user3@gmail.com");
 
-In a new query copy and execute the previous commands. The DELETE command allows us to reexecute again the query without errors. Within the same file, after the previous lines, add the necessary INSERTs and DELETEs to fill with three or four rows all the tables that we created before. You should follow these rules:
+If your CREATEs were correctly specified, there are some INSERTs that MySQL will not let you execute. Check that the following INSERTs raise errors (you don't need to deliver nothing about this):
+
+	INSERT INTO users VALUES ( NULL, "4444", "user2@gmail.com");
+	INSERT INTO users VALUES ( "user1", "4444", "user2@gmail.com");
+	INSERT INTO users VALUES ( "user2", "4444", "user1@gmail.com");
+	INSERT INTO photos VALUES ("photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, NULL);
+	INSERT INTO photos VALUES ("photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2");
+
+## 8. Filling your tables
+
+**Edit a new text file named inserts.sql** and add there the necessary INSERTs and DELETEs to fill the tables with the following values (execute the commands when finished):
+
+Users:
+	"user1", "1234", "user1@gmail.com"
+	"user2", "1234", "user2@gmail.com"
+	"user3", "1234", "user3@gmail.com"
+
+Photos:
+	"photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
+	"photo2.jpg", "photo 2", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
+	"photo3.jpg", "photo 3", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2"
+
+Likes:
+	"user2", "photo1.jpg"
+	"user2", "photo2.jpg"
+
+Follows:
+
+	"user2", "user1"
+
+You should follow these rules:
 
 - You have to respect the specified table constraints
-- Dates have the format: “yyyy-mm-dd”
+- Datetime values have the format: 'YYYY-MM-DD HH:MM:SS' (with the quotes)
 - Order in which you insert rows matters (you cannot reference a user that still does not exist)
 
-Save the file with the name inserts.sql.
+### Alernative INSERT syntax
 
-### 7.1 About foreign key errors (errno = 105)
-
-If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the EDCAV server). If you cannot find the way to solve the problem you may ask the
-lab teacher (she/he have the enough privileges to execute that query).
-
-### 7.2 Alternative INSERT syntax
+By the way, there's an alternative syntax for INSERTs that you can try:
 
 	INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
 
+### About foreign key errors (errno = 105)
 
-## 8. SQL Queries
-Now that you have tables and rows you can execute the SQL query commands you have learned during the theory classes. Specify the SQL statement that will allow you to obtain the following results. Write your answers in a text file that you deliver to the professor.
+If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the EDCAV server). If you cannot find the way to solve the problem you may ask the lab teacher (she/he have the enough privileges to execute that query).
+
+
+## 9. SQL Queries
+Now that you have tables and rows you can execute the SQL query commands you have learned during the theory classes. Try executing the following queries (you don't need to deliver nothing about this):
 
 1. Show all users and their data
 
-	SELECT * FROM employees;
+	SELECT * FROM users;
 
-2. Show the photos uploaded on 04/02/2013
-3. Show the filename and datetime_taken of photos from user "user1"
-4. Show how many photos belong to "user1".
-5. For each user show, the username and how many photos does she has.
-6. Show the filename and datetime_taken of photos from a user with email “user2@gmail.com”.
+2. (projection) Show the username and password of all users
 
-## 9.	Delivery
+	SELECT username, password FROM users;
 
-The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
+3. (selection) Show the photos with width > 200 and height > 200
+
+	SELECT * FROM photos WHERE width > 200 AND height > 200;
+
+4. (cartesian product) Show all the possible pairs of (photo, user) regardless of the values of the username field (show only the photo's filename and the user's username).
+
+	SELECT p.filename, u.email FROM photos p, users u;
+
+5. (join) For all photos, show their filename and the email address of the user that created them.
+
+	SELECT p.filename, u.email FROM photos p, users u WHERE p.username = u.username;
+
+6. (aggregate functions) Show how many photos belong to "user1".
+
+	SELECT count(*) FROM photos WHERE username = "user1";
+
+7. (grouping) For each user, show the username and how many photos does she has.
+
+	SELECT username, count(*) FROM photos GROUP BY username;
+
+Now, try yourself specifying the SQL statement that will allow you to obtain the following results. **Write your answers in a text file (queries.sql)** that you will deliver to the professor.
+
+1. Show all photos and their data
+
+2. (projection) Show the filename and title of all photos
+
+3. (selection) Show the users with password = "1234"
+
+5. (join between likes and photos) For all the 'likes', show username, the filename and the title of the related photo.
+
+6. (aggregate functions) Show how many likes does "photo1.jpg" have.
+
+
+## 10.	Delivery
+
+The files creates.sql, inserts.sql and queries.sql have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
+
 
 
 ## ANNEX 1.	Alternative setups
