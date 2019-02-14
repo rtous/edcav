@@ -33,56 +33,58 @@ Within a query window of the MySQL Workbench (the one that appears after connect
 
 The first thing you must do is creating the tables that comprise your database. The creation and destruction of tables is done via the SQL CREATE and DROP commands. For example, if we want to create the table:
 
-*clients(__id_cli__, name_cli, nif, adress, city, phone)*
+*users(__username__, password, email UNIQUE)*
 
 We have to execute:
 
-	CREATE TABLE clients(
-		id_cli INTEGER,
-		name_cli CHAR(30) NOT NULL,
-		nif CHAR (9),
-		adress CHAR(30),
-		city CHAR(20),
-		phone INTEGER,
-		PRIMARY KEY (id_cli),
-		UNIQUE (nif)
-	) ENGINE = INNODB;
+	CREATE TABLE  users(
+		username VARCHAR(100) NOT NULL,
+		password VARCHAR(100),
+		email VARCHAR(100),
+		PRIMARY KEY (username),
+		UNIQUE (email)
+	); ENGINE = INNODB;
 
 Save the command into a file creates.sql.
 
 Now create the table:
 
-*projects(__id_proj__, name_proj, price, date_start, date_prev_end date_end, id_client)*
+*photos(__filename__, title, description, width, height, datetime_taken, latitude, longitude, username NOT NULL)*
+- username ->foreign key: users(username)
 
-Into the same file, below the ‘clients’ CREATE, copy the following:
+Into the same file, below the ‘users’ CREATE, copy the following:
 
-	CREATE TABLE projects(
-		id_proj INTEGER,
-		name_proj CHAR(20),
-		price REAL,
-		date_start DATE,
-		date_prev_end DATE,
-		date_end DATE,
-		id_client INTEGER,
-		PRIMARY KEY (id_proj),
-		FOREIGN KEY (id_client) REFERENCES clients (id_cli)
+	CREATE TABLE  photos (
+		filename VARCHAR(100) NOT NULL,
+		title VARCHAR(100),
+		description VARCHAR(300),
+		width INTEGER,
+		height INTEGER,
+		datetime_taken DATETIME,
+		latitude DECIMAL (10,8),
+		longitude DECIMAL (10,8),
+		username VARCHAR(100) NOT NULL,
+		PRIMARY KEY (filename),
+		CONSTRAINT photo_fk_1 FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE
 	) ENGINE = INNODB;
 
 Note that the order in which CREATEs appear is important because 'projects' references ‘clients’. Usually when you create a DB, you also create a DROPs file to facilitate the deletion of all tables. It can also be created within the same CREATEs file. At the beginning of the file (before the CREATEs) copy the following (the order is important, because MySQL is not going to leave us to delete a
 referenced table):
 
-	DROP TABLE IF EXISTS projects;
-	DROP TABLE IF EXISTS clients;
+	DROP TABLE IF EXISTS photos;
+	DROP TABLE IF EXISTS users;
 
 ## 6. Creating a DB, now your turn 	
 
 Now, create yourself the following tables:
 
-*departments(__name_dpt__, __city_dpt__, phone)*
+*follows(__follower_username__, __following_username__)*
+- follower_username ->foreign key: users(username)
+- following_username ->foreign key: users(username)
 
-*employees(__id_empl__, name_empl, surname_empl, sou, name_dpt, city_dpt, num_proj)*
-- name_dpt, city_dpt ->foreign key: departments(name_dpt, city_dpt)
-- num_proj ->foreign key: projects (id_proj)
+*likes(__username__, __filename__)*
+- username ->foreign key: users(username)
+- filename ->foreign key: photos(filename)
 
 It is important that you save a file with your CREATEs and DROPs. Name it creates.sql.
 
@@ -92,18 +94,16 @@ Now your DB has tables, but they still do not contain any row. The SQL command f
 
 	SET SQL_SAFE_UPDATES=0;
 
-	DELETE FROM departments;
-	INSERT INTO departments VALUES ("marketing", "Barcelona", 936745010);
-	INSERT INTO departments VALUES ("administration", "Barcelona", 936745011);
-	INSERT INTO departments VALUES ("marketing", "Madrid", 936745012);
-	INSERT INTO departments VALUES ("administration", "Madrid", 936745013);
+	DELETE FROM users;
+	INSERT INTO users VALUES ("user1", "1234", "user1@gmail.com");
+	INSERT INTO users VALUES ("user2", "1234", "user2@gmail.com");
+	INSERT INTO users VALUES ("user3", "1234", "user3@gmail.com");
 
 In a new query copy and execute the previous commands. The DELETE command allows us to reexecute again the query without errors. Within the same file, after the previous lines, add the necessary INSERTs and DELETEs to fill with three or four rows all the tables that we created before. You should follow these rules:
 
 - You have to respect the specified table constraints
 - Dates have the format: “yyyy-mm-dd”
-- Order in which you insert rows matters (you cannot reference a department that still does
-not exist)
+- Order in which you insert rows matters (you cannot reference a user that still does not exist)
 
 Save the file with the name inserts.sql.
 
@@ -120,22 +120,17 @@ lab teacher (she/he have the enough privileges to execute that query).
 ## 8. SQL Queries
 Now that you have tables and rows you can execute the SQL query commands you have learned during the theory classes. Specify the SQL statement that will allow you to obtain the following results. Write your answers in a text file that you deliver to the professor.
 
-1. Show all data about all employees
+1. Show all users and their data
 
 	SELECT * FROM employees;
 
-2. Show the names of all the clients
-3. Show the name, surname and salary of all the employees with a salary > 1000
-4. Show all data about the departments from Madrid
-5. Show the name and surname of employees that work at the “administration” department in Madrid.
-6. Show the number of clients in Madrid.
-7. Show the employees that are not assigned to any project.
-8. For each different name appearing within the employees table (e.g. ‘Maria’) show how many employees have that name.
-9. For all employees with a department assigned, show their name and surname, and also the phone number of the department
-10. For all employees (with or without a department assigned), show their name and surname and, if they are assigned to a department, show also the phone number of the department
+2. Show the photos uploaded on 04/02/2013
+3. Show the filename and datetime_taken of photos from user "user1"
+4. Show how many photos belong to "user1".
+5. For each user show, the username and how many photos does she has.
+6. Show the filename and datetime_taken of photos from a user with email “user2@gmail.com”.
 
-
-## 10.	Delivery
+## 9.	Delivery
 
 The files creates.sql, inserts.sql and the answers have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
 
