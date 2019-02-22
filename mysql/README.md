@@ -26,13 +26,13 @@ Click the "New Connection" option and specify the connection parameters. We have
 
 Within a query window of the MySQL Workbench (the one that appears after connecting to the server) type the following (replace the X for your DB number) and press the execute icon:
 
-	SET PASSWORD FOR ‘edcavX’ = PASSWORD (‘mypassword’);
+	SET PASSWORD FOR 'edcavX' = PASSWORD ('mypassword');
 
 ## 4. Selecting the database to work with
 
 Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type (replacing X for your database number):
 
-	USER edcavX;
+	USE edcavX;
 
 ## 5. Creating tables, first examples
 
@@ -174,7 +174,7 @@ If you find foreign key errors you can get more information with SHOW ENGINE INN
 
 
 ## 9. SQL Queries
-Now that you have tables and rows you can execute the SQL query commands you have learned during the theory classes. Try executing the following queries (you don't need to deliver nothing about this):
+Now that you have tables and rows you can execute the SQL query commands that you have learned during the theory classes. Try executing the following queries (you don't need to deliver nothing about this):
 
 1. Show all users and their data
 
