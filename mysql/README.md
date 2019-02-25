@@ -45,7 +45,7 @@ We have to execute:
 	CREATE TABLE  users(
 		username VARCHAR(100),
 		password VARCHAR(100),
-		email VARCHAR(100),
+		email VARCHAR(100) UNIQUE,
 		PRIMARY KEY (username),
 		UNIQUE (email)
 	) ENGINE = INNODB;
@@ -78,7 +78,7 @@ Into the same file, below the ‘users’ CREATE, copy the following:
 		datetime_taken DATETIME,
 		latitude DECIMAL (10,8),
 		longitude DECIMAL (10,8),
-		username VARCHAR(100) NOT NULL,
+		username VARCHAR(100),
 		PRIMARY KEY (filename),
 		CONSTRAINT photo_fk_1 FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 	) ENGINE = INNODB;
@@ -100,7 +100,7 @@ Usually, it is convenient to include DROPs for all the tables at the beginning o
 
 *Notice that the order of the DROPs is inverse with respect to the order to the CREATEs.*
 
-## 6. Creating a DB, now your turn 	
+## 6. Creating a DB, now your turn 	(**3 points**)
 
 Now, create yourself the following tables:
 
@@ -128,10 +128,9 @@ If your CREATEs were correctly specified, there are some INSERTs that MySQL will
 	INSERT INTO users VALUES ( NULL, "4444", "user2@gmail.com");
 	INSERT INTO users VALUES ( "user1", "4444", "user2@gmail.com");
 	INSERT INTO users VALUES ( "user2", "4444", "user1@gmail.com");
-	INSERT INTO photos VALUES ("photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, NULL);
 	INSERT INTO photos VALUES ("photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2");
 
-## 8. Filling your tables
+## 8. Filling your tables (**3 points**)
 
 **Edit a new text file named inserts.sql** and add there the necessary INSERTs and DELETEs to fill the tables with the following values (execute the commands when finished):
 
@@ -144,8 +143,9 @@ Users:
 Photos:
 
 	"photo1.jpg", "photo 1", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
-	"photo2.jpg", "photo 2", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
-	"photo3.jpg", "photo 3", "winter landscape 1", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2"
+	"photo2.jpg", "photo 2", "winter landscape 2", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user1"
+	"photo3.jpg", "photo 3", "winter landscape 3", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, "user2"
+	"photo4.jpg", "photo 4", "winter landscape 4", 600, 400, '2019-02-02 10:10:10', 20.2, 20.2, NULL
 
 Likes:
 
@@ -173,7 +173,7 @@ By the way, there's an alternative syntax for INSERTs that you can try:
 If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the EDCAV server). If you cannot find the way to solve the problem you may ask the lab teacher (she/he have the enough privileges to execute that query).
 
 
-## 9. SQL Queries
+## 9. Basic SQL queries
 Now that you have tables and rows you can execute the SQL query commands that you have learned during the theory classes. Try executing the following queries (you don't need to deliver nothing about this):
 
 1. Show all users and their data
@@ -204,6 +204,9 @@ Now that you have tables and rows you can execute the SQL query commands that yo
 
 	SELECT username, count(*) FROM photos GROUP BY username;
 
+
+## 10. Basic SQL queries, now your turn (**2 points**)
+
 Now, try yourself specifying the SQL statement that will allow you to obtain the following results. **Write your answers in a text file (queries.sql)** that you will deliver to the professor.
 
 1. Show all photos and their data
@@ -212,12 +215,61 @@ Now, try yourself specifying the SQL statement that will allow you to obtain the
 
 3. (selection) Show the users with password = "1234"
 
-5. (join between likes and photos) For all the 'likes', show username, the filename and the title of the related photo.
+4. (join between likes and photos) For all the 'likes', show username, the filename and the title of the related photo.
 
-6. (aggregate functions) Show how many likes does "photo1.jpg" have.
+5. (aggregate functions) Show how many likes does "photo1.jpg" have.
 
 
-## 10.	Delivery
+## 11. More advanced SQL queries
+
+Try executing the following queries (you don't need to deliver nothing about this).
+
+### LIKE 
+
+The LIKE clause allows you to express wildcards (%) in conditions over text fields:
+
+	SELECT * FROM photos WHERE description LIKE "%landscape%";
+
+### HAVING
+
+When we want to perform a GROUP BY but returning only the groups that satisfy a given condition we can use the HAVING clause. For instance the following query retrieves the username of users with more than one photo:
+
+	SELECT username FROM photos GROUP BY username HAVING count(*) > 1;
+
+### NULLs
+
+Try executing the following query:
+
+	SELECT * FROM photos WHERE username != "john";
+
+The photo with username=NULL is not returned as the expression NULL != "john" returns UNKNOWN. But you can do:
+
+	SELECT * FROM photos WHERE username != "john" OR username is NULL;
+
+### LEFT OUTER JOIN
+
+Let's try executing our previous query with a JOIN:
+
+	SELECT p.filename, u.email FROM photos p, users u WHERE p.username = u.username;
+
+The photo with username=NULL is not returned. But, why if we want to retrieve information about all the photos even if they are not linked to any username? We can perform a LEFT OUTER JOIN:
+
+	SELECT p.filename, u.email FROM photos p LEFT OUTER JOIN users u ON p.username = u.username;
+
+
+## 12. More advanced SQL queries, now your turn (**2 points**)
+Now, try yourself specifying the SQL statement that will allow you to obtain the following results. **Write your answers in queries.sql**:
+
+1. (LIKE) Show all users with a gmail email address
+
+2. (HAVING) Show all photos with more than zero likes
+
+3. (NULLs) Show all the photos whose username is NULL
+
+4. (LEFT OUTER JOIN) Show the filename of all the photos and, if they are linked to a username, show the corresponding username and password. 
+
+
+## 13.	Delivery
 
 The files creates.sql, inserts.sql and queries.sql have to be delivered in a single file (.zip or .tar.gz) through the proper section within http://atenea.upc.edu. 
 
