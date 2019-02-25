@@ -178,31 +178,31 @@ Now that you have tables and rows you can execute the SQL query commands that yo
 
 1. Show all users and their data
 
-	SELECT * FROM users;
+		SELECT * FROM users;
 
 2. (projection) Show the username and password of all users
 
-	SELECT username, password FROM users;
+		SELECT username, password FROM users;
 
 3. (selection) Show the photos with width > 200 and height > 200
 
-	SELECT * FROM photos WHERE width > 200 AND height > 200;
+		SELECT * FROM photos WHERE width > 200 AND height > 200;
 
 4. (cartesian product) Show all the possible pairs of (photo, user) regardless of the values of the username field (show only the photo's filename and the user's username).
 
-	SELECT p.filename, u.email FROM photos p, users u;
+		SELECT p.filename, u.email FROM photos p, users u;
 
 5. (join) For all photos, show their filename and the email address of the user that created them.
 
-	SELECT p.filename, u.email FROM photos p, users u WHERE p.username = u.username;
+		SELECT p.filename, u.email FROM photos p, users u WHERE p.username = u.username;
 
 6. (aggregate functions) Show how many photos belong to "user1".
 
-	SELECT count(*) FROM photos WHERE username = "user1";
+		SELECT count(*) FROM photos WHERE username = "user1";
 
 7. (grouping) For each user, show the username and how many photos does she has.
 
-	SELECT username, count(*) FROM photos GROUP BY username;
+		SELECT username, count(*) FROM photos GROUP BY username;
 
 
 ## 10. Basic SQL queries, now your turn (**2 points**)
