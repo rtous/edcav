@@ -248,7 +248,7 @@ The photo with username=NULL is not returned as the expression NULL != "john" re
 
 ### LEFT OUTER JOIN
 
-Let's try executing our previous query with a JOIN:
+Let's try executing the following query with a JOIN:
 
 	SELECT p.filename, u.email FROM photos p, users u WHERE p.username = u.username;
 
