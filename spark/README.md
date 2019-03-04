@@ -28,7 +28,7 @@ For the examples we will need numpy. If you don't have it installed let's do a:
 
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
-	$ wget http://apache.rediris.es/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
+	$ wget https://archive.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
 
 Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.2.1.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.2.1-bin-hadoop2.7).
 
