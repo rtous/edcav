@@ -1,4 +1,4 @@
-# Session 1. SQL and Multimedia Metadata Hands-on (2 hours)
+# Session 1. SQL and Multimedia Metadata (2 hours)
 
 ## 1.	Introduction
 
