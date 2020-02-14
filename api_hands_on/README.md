@@ -45,6 +45,14 @@ You should see the contents of the drcav directory, which you can also access fr
 	apt-get install -y python
 	apt-get install -y python-pip
 
+### 3 NASA APIs
+
+For this tutorial we will use the [NASA APIs](https://api.nasa.gov/). They provide access to NASA data, including multimedia. The APIs are free and some of them are accessible without an API Key (though it's very easy to obtain one).
+
+![nasa logo](./nasa.png)
+
+
+
 ### 3 Checking the API with the browser
 
 Type the following URL into your browser (e.g. Chrome):
