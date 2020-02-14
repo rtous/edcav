@@ -6,54 +6,35 @@ A web service is a generic term for a software function that is accessible throu
 
 The goal of this session is to learn different ways to access a web API and to know how to obtain multimedia metadata from it.  
 
-## 2	Setup
+## 2.	Setup
 
-In order to ensure that all of us have the same development environent we will work over Docker. 
+This hands-on tutorial basically requires a Python installation (any version), but it also uses some typical Linux command-line tools such as cURL. The recommended platform is Linux, but macOS is also ok. With some extra setup Windows users should be also able to run everything.
 
-### 2.1 Install Docker 
+*In case you find inconvenient performing the setup directly on your operating system (e.g. if you have Windows), you may do it on a virtual machine (e.g. VirtualBox). However, in that case we recommend using Docker instead. ANNEX 1 describes all the steps to perform this tutorial over Docker.*
 
-If you don't have Docker already installed you will need to install it. In Ubuntu you can do it this way:
+### 2.1 Install Python
 
-    sudo apt-get update
-    wget -qO- https://get.docker.com/ | sh
-    sudo usermod -aG docker $(whoami)
+On Linux or macOS you don't need to do nothing special as they already come with Python 2.7 already installed. 
 
-It's necessary to LOGOUT to let the usermod command have effect.
+On Windows you can also install Python directly, but typically Windows users prefer to install a complete Python environment such as [Anaconda](https://www.anaconda.com/distribution/). Anaconda is also an alternative for Linux and macOS users. 
 
-Windows and OSX installation procedures can be found [here](https://docs.docker.com/install/). 
+If you install Python use one of the new versions, e.g. 3.7 (though this tutorial will work on any version).
 
-* Additional information on how to use Docker can be found [here](../docker.md). *
+### 2.2 Install cURL or Postman
 
-### 2.2 Create a working directory
+For this section we will use the cURL command-line tool. On Ubuntu you can install it this way:
 
-Open a terminal and create a directory in your laptop for DRCAV. For instance, from your home directory (this should work on any platform):
+	sudo apt-get install curl
 
-	mkdir drcav
+On macOs, if you have Hombrew (follow the instructions [here](https://brew.sh/) if not), you can just do this:
 
-You need to write down the absolute path of this directory. On Linux and macOS you can know it with "pwd", on Windows you can type "echo %cd%". We will tell Docker to make this directory accessible from the container that we are going to launch. 
+	brew install curl
 
-### 2.3 Launch an Ubuntu container
+On Windows 10 cURL can be called with this path (in [this stackoverflow thread](https://stackoverflow.com/questions/9507353/how-do-i-install-and-use-curl-on-windows/50200838#50200838) you will find some alternatives):
 
-Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to the drcav directory):
+	C:\Windows\System32\curl.exe
 
-	docker run -it --name drcav -v YOUR_PATH/drcav:/drcav ubuntu bash
-
-You should see something like this:
-
-	root@813847d78b39:/#
-
-Which means that you are now within an Ubuntu container. If you type
-
-	cd /drcav
-
-You should see the contents of the drcav directory, which you can also access from outside Docker. 
-
-### 2.4 Install cURL and Python
-
-	apt-get update
-	apt-get install -y curl
-	apt-get install -y python
-	apt-get install -y python-pip
+In case you are not able to run cURL you can try installing [Postman](https://www.postman.com/). This may be the better option for Windows users.
 
 ### 3 NASA APIs
 
@@ -109,7 +90,9 @@ Let's now create the program that will send requests to the API (a client progra
 
 	touch APIClient.py
 
-Now edit the file and copy there the following code:
+Or you can create the file from your editor or your IDE (e.g. Anaconda). 
+
+Now edit the file with your a text editor or your IDE:
 
 	import requests
 
@@ -152,6 +135,39 @@ Printing all the resulting JSON is ok, but you may probably want to access speci
 			print("\t\t"+link['href'])
 
 
+## ANNEX 1.	Alternative setup with Docker (OPTIONAL)
 
+If you want to work with your personal computer but you don't want to mess up your OS, you may find convenient to work over Docker. If you don't have Docker already installed follow the instructions [here](../docker.md). 
+
+### A1.1 Create a working directory
+
+Open a terminal and create a directory in your laptop for DRCAV. For instance, from your home directory (this should work on any platform):
+
+	mkdir drcav
+
+You need to write down the absolute path of this directory. On Linux and macOS you can know it with "pwd", on Windows you can type "echo %cd%". We will tell Docker to make this directory accessible from the container that we are going to launch. 
+
+### A1.2 Launch an Ubuntu container
+
+Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to the drcav directory):
+
+	docker run -it --name drcav -v YOUR_PATH/drcav:/drcav ubuntu bash
+
+You should see something like this:
+
+	root@813847d78b39:/#
+
+Which means that you are now within an Ubuntu container. If you type
+
+	cd /drcav
+
+You should see the contents of the drcav directory, which you can also access from outside Docker. 
+
+### A1.3 Install cURL and Python
+
+	apt-get update
+	apt-get install -y curl
+	apt-get install -y python
+	apt-get install -y python-pip
 
 
