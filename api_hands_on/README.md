@@ -1,4 +1,4 @@
-# Web API Hands-on
+# Web API Hands-on (API of the NASA Image and Video Library)
 
 ## 1.	Introduction
 
