@@ -2,7 +2,7 @@
 
 ## Hands-on
 
-[Hands-on 1 (API of the NASA Image and Video Library)](./mysql_hands_on/README.md)
+[Hands-on 1 (API of the NASA Image and Video Library)](./api_hands_on/README.md)
 
 [Hands-on 2 (MongoDB)](./mongodb_hands_on/README.md)
 
