@@ -8,49 +8,16 @@ The goal of this session is to learn different ways to access a web API and to k
 
 ## 2.	Setup
 
-This hands-on tutorial basically requires a Python installation (any version), but it also uses some typical command-line tools such as cURL. This may not be a problem (specially for macOS and Linux users) but **we are going to work over Docker** to avoid messing with our laptops. 
+This hands-on tutorial basically requires a Python installation (any version), but it also uses some typical command-line tools such as cURL. The recommended platform is Linux, but macOS is also ok. With some extra setup Windows users should be also able to run everything.
 
-### 2.1 Install Docker
-
-If you don't have Docker already installed follow the instructions [here](../docker.md). 
-
-### 2.2 Create a working directory
-
-Open a terminal and create a directory in your laptop for DRCAV. For instance, from your home directory (this should work on any platform):
-
-	mkdir drcav
-
-You need to write down the absolute path of this directory. On Linux and macOS you can know it with "pwd", on Windows you can type "echo %cd%". We will tell Docker to make this directory accessible from the container that we are going to launch. 
-
-### 2.3 Launch an Ubuntu container
-
-Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to the drcav directory):
-
-	docker run -it --name drcav -v YOUR_PATH/drcav:/drcav ubuntu bash
-
-You should see something like this:
-
-	root@813847d78b39:/#
-
-Which means that you are now within an Ubuntu container. If you type
-
-	cd /drcav
-
-You should see the contents of the drcav directory, which you can also access from outside Docker. 
-
-### 2.2 Install cURL and Python
-
-	apt-get update
-	apt-get install -y curl
-	apt-get install -y python
-	apt-get install -y python-pip
+*In case you find inconvenient performing the setup directly on your operating system (e.g. if you have Windows), you may do it on a virtual machine (e.g. VirtualBox). However, in that case we recommend using Docker instead. ANNEX 1 describes all the steps to perform this tutorial over Docker.*
 
 ### 3 NASA APIs
 
-For this tutorial we will use the [NASA APIs](https://api.nasa.gov/). They provide access to NASA data, including multimedia. The APIs are free and some of them are accessible without an API Key (though it's very easy to obtain one).
+For this tutorial we will use the [NASA APIs](https://api.nasa.gov/). They provide access to NASA data, including multimedia. The APIs are free and some of them are even accessible without an API Key (though it's very easy to obtain one).
 <p align="center"><img src="nasa.png" alt="nasa logo" width="200"/></p>
 
-
+https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf
 
 ### 3 Checking the API with the browser
 
@@ -143,33 +110,39 @@ In order to access the different JSON fields you:
 			print("\t\t"+link['href'])
 
 
+## ANNEX 1.	Alternative setup with Docker (OPTIONAL)
 
+If you want to work with your personal computer but you don't want to mess up your OS, you may find convenient to work over Docker. If you don't have Docker already installed follow the instructions [here](../docker.md). 
 
+### A1.1 Create a working directory
 
-------------------------
-	https://api.nasa.gov/planetary/apod?api_key=JYthHHrcdCrRG9cU0Pfsxe3n2hJJsFwoYEBrHONo
+Open a terminal and create a directory in your laptop for DRCAV. For instance, from your home directory (this should work on any platform):
 
-	- pick one image: https://apod.nasa.gov/apod/image/2002/trifid_spitzerR1024.jpg
+	mkdir drcav
 
-https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf
+You need to write down the absolute path of this directory. On Linux and macOS you can know it with "pwd", on Windows you can type "echo %cd%". We will tell Docker to make this directory accessible from the container that we are going to launch. 
 
+### A1.2 Launch an Ubuntu container
 
+Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to the drcav directory):
 
-As 
+	docker run -it --name drcav -v YOUR_PATH/drcav:/drcav ubuntu bash
 
-SCIENCE
+You should see something like this:
 
-https://api.nasa.gov/
-	- API Key: JYthHHrcdCrRG9cU0Pfsxe3n2hJJsFwoYEBrHONo
+	root@813847d78b39:/#
 
+Which means that you are now within an Ubuntu container. If you type
 
+	cd /drcav
 
-With curl:
+You should see the contents of the drcav directory, which you can also access from outside Docker. 
 
-curl -G https://images-api.nasa.gov/search --data-urlencode "q=apollo 11" --data-urlencode "description=moon landing" --data-urlencode "media_type=image"
+### A1.3 Install cURL and Python
 
-curl -G https://images-api.nasa.gov/search --data-urlencode "q=apollo 11" --data-urlencode "description=moon landing" --data-urlencode "media_type=image" | python -m json.tool
-
-
+	apt-get update
+	apt-get install -y curl
+	apt-get install -y python
+	apt-get install -y python-pip
 
 
