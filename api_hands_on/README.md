@@ -49,7 +49,7 @@ You should see the contents of the drcav directory, which you can also access fr
 
 For this tutorial we will use the [NASA APIs](https://api.nasa.gov/). They provide access to NASA data, including multimedia. The APIs are free and some of them are accessible without an API Key (though it's very easy to obtain one).
 
-![nasa logo](./nasa.png =100x20)
+<img src="nasa.png" alt="nasa logo" width="200"/>
 
 
 
