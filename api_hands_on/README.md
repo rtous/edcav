@@ -12,14 +12,36 @@ This hands-on tutorial basically requires a Python installation (any version), b
 
 *In case you find inconvenient performing the setup directly on your operating system (e.g. if you have Windows), you may do it on a virtual machine (e.g. VirtualBox). However, in that case we recommend using Docker instead. ANNEX 1 describes all the steps to perform this tutorial over Docker.*
 
+### 2.1 Install Python
+
+On Linux or macOS you don't need to do nothing special as they already come with Python 2.7 already installed. 
+
+On Windows you can also install Python directly, but typically Windows users prefer to install a complete Python environment such as [Anaconda](https://www.anaconda.com/distribution/). Anaconda is also an alternative for Linux and macOS users.  
+
+### 2.2 Install cURL or Postman
+
+For this section we will use the cURL command-line tool. On Ubuntu you can install it this way:
+
+	sudo apt-get install curl
+
+On macOs, if you have Hombrew (follow the instructions [here]](https://brew.sh/) if not), you can just do this:
+
+	brew install curl
+
+On Windows 10 cURL can be called with this path (in [this stackoverflow thread](https://stackoverflow.com/questions/9507353/how-do-i-install-and-use-curl-on-windows/50200838#50200838) you will find some alternatives):
+
+	C:\Windows\System32\curl.exe
+
+In case you are not able to run cURL you can try installing [Postman](https://www.postman.com/). This may be the better option for Windows users.
+
 ### 3 NASA APIs
 
 For this tutorial we will use the [NASA APIs](https://api.nasa.gov/). They provide access to NASA data, including multimedia. The APIs are free and some of them are even accessible without an API Key (though it's very easy to obtain one).
 <p align="center"><img src="nasa.png" alt="nasa logo" width="200"/></p>
 
-https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf
+Specifically we will access the API of the [NASA Image and Video Library](https://images.nasa.gov/). Take a look to the [NASA Image and Video Library API documentation](https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf) to see how a web API specification looks like.
 
-### 3 Checking the API with the browser
+### 4 Checking the API with the browser
 
 Type the following URL into your browser (e.g. Chrome):
 
@@ -32,9 +54,9 @@ The API will return a large JSON file with metadata. Going back to your initial 
 Now copy any of the image URLs found within the response JSON file (e.g. https://images-assets.nasa.gov/image/iss014e10547/iss014e10547~thumb.jpg
 ) and paste it into another browser tab to display it.
 
-### 3 Checking the API with the terminal
+### 5 Checking the API with the terminal (or from Postman)
 
-From the Ubuntu terminal type the following:
+From the terminal type the following:
 
 	curl -G https://images-api.nasa.gov/search --data-urlencode "q=barcelona" --data-urlencode "media_type=image"
 
