@@ -22,7 +22,7 @@ It's necessary to LOGOUT to let the usermod command have effect.
 
 Windows and OSX installation procedures can be found [here](https://docs.docker.com/install/). 
 
-* Additional information on how to use Docker can be found [here](../docker.md). *
+*Additional information on how to use Docker can be found [here](../docker.md).*
 
 ### 2.2 Create a working directory
 
