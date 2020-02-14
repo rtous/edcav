@@ -1,0 +1,11 @@
+--2020-02-13 11:57:21--  https://images-api.nasa.gov/search?q=apollo%2011
+Resolviendo images-api.nasa.gov (images-api.nasa.gov)... 13.224.106.22, 13.224.106.53, 13.224.106.69, ...
+Conectando con images-api.nasa.gov (images-api.nasa.gov)[13.224.106.22]:443... conectado.
+Petición HTTP enviada, esperando respuesta... 200 OK
+Longitud: 98975 (97K) [application/json]
+Grabando a: “search?q=apollo 11”
+
+search?q=apollo 11               0%[                                                   ]       0  --.-KB/s               search?q=apollo 11             100%[==================================================>]  96,66K  --.-KB/s    en 0,07s   
+
+2020-02-13 11:57:22 (1,36 MB/s) - “search?q=apollo 11” guardado [98975/98975]
+
