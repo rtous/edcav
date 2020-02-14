@@ -2,16 +2,18 @@
 
 ## Hands-on
 
-[Hands-on 1 (SQL)](./mysql_hands_on/README.md)
+[Hands-on 1 (API of the NASA Image and Video Library)](./mysql_hands_on/README.md)
 
 [Hands-on 2 (MongoDB)](./mongodb_hands_on/README.md)
 
 ## Lab sessions
 
-[Session 1 (SQL and Multimedia Metadata Hands-on)](./mysql/README.md)
+[Session 1 (SQL and Multimedia Metadata)](./mysql/README.md)
 
 [Session 2 (Big Data Analytics with Spark)](./spark/README.md)
 
-[(help for those wanting to use their own computers (through Docker))](./docker.md)
+## Ohter
+
+[Help with Docker](./docker.md)
 
 
