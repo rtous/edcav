@@ -44,6 +44,8 @@ Open a terminal and create a directory in your laptop for DRCAV. For instance, f
 
 You need to write down the absolute path of this directory. On Linux and macOS you can know it with "pwd", on Windows you can type "echo %cd%". We will tell Docker to make this directory accessible from the container that we are going to launch. 
 
+*NOTE: If you are using Docker Toolbox on Windows 10 please create the directory within your home directory (C:\Users\YOUR_USER_NAME\drcav)*
+
 ### 2.3 Launch an Ubuntu container
 
 Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to the drcav directory):
