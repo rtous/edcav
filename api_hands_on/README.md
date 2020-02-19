@@ -12,7 +12,11 @@ In order to ensure that all of us have the same development environent we will w
 
 ### 2.1 Install Docker 
 
-If you don't have Docker already installed you will need to install it. In Ubuntu you can do it this way:
+If you don't have Docker already installed you will need to install it. 
+
+#### Ubuntu
+
+In Ubuntu you install Docker this way:
 
     sudo apt-get update
     wget -qO- https://get.docker.com/ | sh
@@ -20,7 +24,15 @@ If you don't have Docker already installed you will need to install it. In Ubunt
 
 It's necessary to LOGOUT to let the usermod command have effect.
 
-Windows and OSX installation procedures can be found [here](https://docs.docker.com/install/). 
+#### Mac
+
+Mac installation procedure can be found [here](https://docs.docker.com/docker-for-mac/install/). 
+
+#### Windows
+
+Installing on Windows may not be so easy. If you have Windows 10 Pro, Enterprise, or Education you can follow the instructions [here](https://docs.docker.com/docker-for-windows/install/). 
+
+However, if you have Windows 10 Home you can only install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/). 
 
 *Additional information on how to use Docker can be found [here](../docker.md).*
 
@@ -38,6 +50,10 @@ Let's lauch now an Ubuntu container (replace YOUR_PATH with the local path to th
 
 	docker run -it --name drcav -v YOUR_PATH/drcav:/drcav ubuntu bash
 
+On Windows 10 Home (Docker Toolbox):
+
+	docker run -it --name drcav -v //c/Users/YOUR_USER_NAME/drcav:/drcav ubuntu bash
+
 You should see something like this:
 
 	root@813847d78b39:/#
@@ -46,7 +62,9 @@ Which means that you are now within an Ubuntu container. If you type
 
 	cd /drcav
 
-You should see the contents of the drcav directory, which you can also access from outside Docker. 
+You should see the contents of the drcav directory, which you can also access from outside Docker. Check that the shared folder works before moving on.
+
+*NOTE: If you are running Docker Toolbox on Windows 10 and you have problems with the shared folder let's open VirtualBox (Docker Toolbox runs over it). Go to configuration/shared folders. You should see a shared folder "c/Users". If not, create this shared folder (persistent, auto-mount) and link it to your home directory*
 
 ### 2.4 Install cURL and Python
 
@@ -150,7 +168,6 @@ Printing all the resulting JSON is ok, but you may probably want to access speci
 		print("\titem's links: ")
 		for link in item['links']:
 			print("\t\t"+link['href'])
-
 
 
 
