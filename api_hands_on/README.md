@@ -62,7 +62,7 @@ You should see something like this:
 
 Which means that you are now within an Ubuntu container. If you type
 
-	cd /drcav
+	root@813847d78b39:/# cd /drcav
 
 You should see the contents of the drcav directory, which you can also access from outside Docker. Check that the shared folder works before moving on.
 
@@ -70,10 +70,29 @@ You should see the contents of the drcav directory, which you can also access fr
 
 ### 2.4 Install cURL and Python
 
-	apt-get update
-	apt-get install -y curl
-	apt-get install -y python
-	apt-get install -y python-pip
+	root@813847d78b39:/# apt-get update
+	root@813847d78b39:/# apt-get install -y curl
+	root@813847d78b39:/# apt-get install -y python
+	root@813847d78b39:/# apt-get install -y python-pip
+
+Let's leave the Ubuntu container for now:
+
+	root@813847d78b39:/# exit
+
+From the terminal, you can check the status of the containers with
+
+	docker ps -a
+
+You can stop or start the container with (you can do it to try it):
+
+	docker stop drcav
+	docker start drcav
+
+You can keep working with the container (if it's running) this way:
+
+	docker exec -it drcav bash
+
+If necessary, you can delete the container with "docker rm drcav" (don't do it now).
 
 ### 3 NASA APIs
 
@@ -95,9 +114,17 @@ The API will return a large JSON file with metadata. Going back to your initial 
 Now copy any of the image URLs found within the response JSON file (e.g. https://images-assets.nasa.gov/image/iss014e10547/iss014e10547~thumb.jpg
 ) and paste it into another browser tab to display it.
 
-### 5 Checking the API with the terminal (or from Postman)
+### 5 Checking the API with Postman (optional)
 
-From the terminal type the following:
+Install [Postman](https://www.postman.com/downloads/) and create a request with the following GET command:
+
+	https://images-api.nasa.gov/search?q=barcelona&media_type=image
+
+Take a look to the JSON response to get an idea of the data structre.
+
+### 6 Checking the API with the terminal
+
+Let's go back into our Ubuntu Docker container and type the following:
 
 	curl -G https://images-api.nasa.gov/search --data-urlencode "q=barcelona" --data-urlencode "media_type=image"
 
@@ -112,20 +139,15 @@ Now you can see the JSON structure. There's a field "href" that points to anothe
 The resulting JSON will let you obtain different versions of the image.
 
 
-### 6 Accessing the API from a Python program
+### 7 Accessing the API from a Python program
 
 If you are working with a popular web API, you will probably find a Python library that hides all the complexity and lets you interact with the API easily. However, sometimes a Python library is not available or it is not properly updated. Here we will learn how to interact with a web API directly, without using any specific library. 
-
-Let's first create a new directory for the source code. From your home directory:
-
-	mkdir drcav
-	cd drcav
 
 We will use the [requests library](https://requests.readthedocs.io/en/master/). You need to install it this way:
 
 	pip install requests
 
-Let's now create the program that will send requests to the API (a client program). You can do it from the terminal:
+Let's now create the program that will send requests to the API (a client program). You can do it from the terminal (from the drcav directory):
 
 	touch APIClient.py
 
@@ -171,6 +193,14 @@ Printing all the resulting JSON is ok, but you may probably want to access speci
 		for link in item['links']:
 			print("\t\t"+link['href'])
 
+As the JSON contains the link to the jpg file, we can easily download it this way: 
+
+	import os
+	[...]
+		for link in item['links']:
+			print("\t\t"+link['href'])
+			myfile = requests.get(link['href'])
+			open(os.path.basename(link['href']), 'wb').write(myfile.content)
 
 
 
