@@ -290,13 +290,9 @@ The files creates.sql, inserts.sql and queries.sql have to be delivered in a sin
 
 ## ANNEX 1.	Alternative setup with your own computer
 
-In case you prefer to work with your own computer it is better to setup a local MySQL server (the server at edcav.upc.es only can be accessed from UPC IP addresses).
+In case you prefer to work with your own computer it is better to setup a local MySQL server (the server at edcav.upc.es only can be accessed from UPC IP addresses). If you have Docker it is really easy to setup a local MySQL server with it (see A1.1). If you don't have Docker you can install a local MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
 
-### A1.1 Your own computer and a local MySQL server (without Docker)
-
-If you have Docker it is really easy to setup a local MySQL server with it (see next section). If you don't have Docker you can install a local MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
-
-### A1.2 Your own computer and a local MySQL server (with Docker)
+### A1.1 Your own computer and a local MySQL server (with Docker)
 
 If you have Docker up and running you can pull and run an msql-server image:
 
