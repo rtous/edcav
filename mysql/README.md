@@ -8,20 +8,28 @@ This session provides an introduction to (Relational) Database Management System
 
 MySQL is a [relational database management system (RDBMS)](https://en.wikipedia.org/wiki/Relational_database#RDBMS), a software that enables users manage [relational databases](https://en.wikipedia.org/wiki/Relational_database#RDBMS) and query them with the [SQL](https://en.wikipedia.org/wiki/SQL) language. A relational database is organized into relations (tables), tuples (rows) and attributes (columns). 
 
-## 2. Environment settings
+## 2. Required setup
 
-In order to work with the lab's PCs (the default option) you should:
+The setup required to be able to perform the diferent exercises are:
+
+1. MySQL server installed
+2. MySQL Workbench installed
+3. A database already created
+
+On the lab's PCs all these requirements are already satisfied. To work on the lab's PCs you should:
 
 - Boot the PC with the Linux image (preferable) or Windows 
 - Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
-If you prefer to work with your laptop let's take a look to ANNEX 1.
+The following sections assume that you are working on the lab's PC's. If you prefer to work with your laptop let's take a look to ANNEX 1.
 
 ## 3.	Connecting to a MySQL server
 
-## 3.1	Accessing the EDCAV's MySQL server (from the lab's PCs)
+## 3.1	Accessing the DRCAV's MySQL server (from the lab's PCs)
 
-At edcav.upc.es we have installed an MySQL Community Server that you can use in this lab session. In order to interact with the server execute the MySQL Workbench application: (Linux) Click the launcher (top-left corner of the screen) and select ‘workbench’. (Windows) Start menu, MySQL folder. 
+(NOTE: If you're working on your laptop skip this section and follow the instructions from ANNEX 1 and jumpt to section 4)
+
+At edcav.upc.es we have installed an MySQL Community Server that you can use in this lab session. In order to interact with the server, execute the MySQL Workbench application: (Linux) Click the launcher (top-left corner of the screen) and select ‘workbench’. (Windows) Start menu, MySQL folder. 
 
 Click the "New Connection" option and specify the connection parameters. We have created 15 databases named edcav1, edcav2, etc. and 15 users named edcav1, edcav2, etc. with privileges over the respective DBs and password ‘edcav’ for all of them. Ask to the professor wich DB you should use. Then specify the proper parameters, e.g.:
 
@@ -35,7 +43,7 @@ Within a query window of the MySQL Workbench (the one that appears after connect
 
 ## 3.2	If the EDCAV's MySQL server is not working (from the lab's PCs)
 
-In case that you cannot access the EDCAV’s server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
+In case that you cannot access the DRCAV's server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
 
 ## 3.3	Accessing a local MySQL server (from your laptop)
 
@@ -290,24 +298,34 @@ The files creates.sql, inserts.sql and queries.sql have to be delivered in a sin
 
 ## ANNEX 1.	Alternative setup with your own computer
 
-In case you prefer to work with your own computer it is better to setup a local MySQL server (the server at edcav.upc.es only can be accessed from UPC IP addresses). If you have Docker it is really easy to setup a local MySQL server with it (see A1.1). If you don't have Docker you can install a local MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
+### A1.1 Install MySQL Workbench
 
-### A1.1 Your own computer and a local MySQL server (with Docker)
+Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
-If you have Docker up and running you can pull and run an msql-server image:
+### A1.2 Install and launch a MySQL server
+
+You need a local MySQL server because the server at edcav.upc.es only can be accessed from UPC IP addresses. If you don't have Docker you need to install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). If you have Docker you can just pull and run an msql-server image:
 
 	docker pull mysql/mysql-server:latest
 	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
 
-In order to know which root password was given do:
+In order to know which root password was given do (wait some seconds before):
 
 	docker logs drcav1 
 
-And take notice of the root password. Then execute:
+And take notice of the root password. 
+
+### A1.3 Create a non-root user and a database
+
+By default you cannot access the server with the root user using MySQL Workbench. So you need to perform the following step using the command-line client. If your installed MySQL with Docker let's execute:
 
 	docker exec -it drcav1 mysql -uroot -p
 
-And type:
+In case you installed MySQL without Docker then you just execute in the terminal (for both Linux and Windows):
+
+	mysql -u root -p
+
+Once you see the client's "mysql>" prompt type:
 
 	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'edcav';
 	mysql>CREATE DATABASE IF NOT EXISTS edcav1;
@@ -315,11 +333,11 @@ And type:
 	mysql>GRANT ALL PRIVILEGES ON edcav1.* to 'edcav1'@'%';
 	mysql>exit;
 
-Then you can run MySQL Workbench and connect to the server:
+### A1.4 Connect with MySQL Workbench
+
+Launch MySQL Workbench and connect to the server:
 
 ![alt text](mysqlworkbench_docker.png "MySQL Workbench")
-
-(WARNING: Don't try to use the old MySQL Workbench version, e.g. 5.2.47, with the mysql Docker container, it's not going to work.)
 
 
 
