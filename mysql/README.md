@@ -4,6 +4,10 @@
 
 This session provides an introduction to (Relational) Database Management Systems (RDBMS), particularly MySQL, and demonstrates their usage for storing and retrieving multimedia metadata. 
 
+### 1.1	MySQL
+
+MySQL is a [relational database management system (RDBMS)](https://en.wikipedia.org/wiki/Relational_database#RDBMS), a software that enables users manage [relational databases](https://en.wikipedia.org/wiki/Relational_database#RDBMS) and query them with the [SQL](https://en.wikipedia.org/wiki/SQL) language. A relational database is organized into relations (tables), tuples (rows) and attributes (columns). 
+
 ## 2.	Environment settings
 
 In order to be able to perform the different tasks you should:
