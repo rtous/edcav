@@ -296,7 +296,7 @@ In case you prefer to work with your own computer it is better to setup a local 
 
 If you have Docker it is really easy to setup a local MySQL server with it (see next section). If you don't have Docker you can install a local MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
 
-#### A1.2 Your own computer and a local MySQL server (with Docker)
+### A1.2 Your own computer and a local MySQL server (with Docker)
 
 If you have Docker up and running you can pull and run an msql-server image:
 
