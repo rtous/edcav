@@ -45,10 +45,6 @@ Within a query window of the MySQL Workbench (the one that appears after connect
 
 In case that you cannot access the DRCAV's server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
 
-## 3.3	Accessing a local MySQL server (from your laptop)
-
-If you are working with your laptop you must follow instructions in ANNEX 1 to connect to a MySQL server.
-
 ## 4. Selecting the database to work with
 
 Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type (replacing X for your database number):
@@ -338,6 +334,8 @@ Once you see the client's "mysql>" prompt type:
 Launch MySQL Workbench and connect to the server:
 
 ![alt text](mysqlworkbench_docker.png "MySQL Workbench")
+
+You can now jump to section 4.
 
 
 
