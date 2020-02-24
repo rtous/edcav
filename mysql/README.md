@@ -25,31 +25,25 @@ The following sections assume that you are working on the lab's PC's. If you pre
 
 ## 3.	Connecting to a MySQL server
 
-## 3.1	Accessing the DRCAV's MySQL server (from the lab's PCs)
+## 3.1	Accessing the MySQL server on localhost (from the lab's PCs)
 
 (NOTE: If you're working on your laptop skip this section and follow the instructions from ANNEX 1 and jumpt to section 4)
 
-At edcav.upc.es we have installed an MySQL Community Server that you can use in this lab session. In order to interact with the server, execute the MySQL Workbench application: (Linux) Click the launcher (top-left corner of the screen) and select ‘workbench’. (Windows) Start menu, MySQL folder. 
+On each lab's PC you will find a MySQL Community Server installed and awaiting connections (on 127.0.0.1:3306). In order to interact with the server, execute the MySQL Workbench application: (Linux) Click the launcher (top-left corner of the screen) and select ‘workbench’. (Windows) Start menu, MySQL folder. 
 
-Click the "New Connection" option and specify the connection parameters. We have created 15 databases named edcav1, edcav2, etc. and 15 users named edcav1, edcav2, etc. with privileges over the respective DBs and password ‘edcav’ for all of them. Ask to the professor wich DB you should use. Then specify the proper parameters, e.g.:
+Click the "+" option (new connection) and specify the connection parameters: 
 
-![alt text](mysqlworkbench.png "MySQL Workbench")
-
-#### How to change your password
-
-Within a query window of the MySQL Workbench (the one that appears after connecting to the server) type the following (replace the X for your DB number) and press the execute icon:
-
-	SET PASSWORD FOR 'edcavX' = PASSWORD ('mypassword');
-
-## 3.2	If the EDCAV's MySQL server is not working (from the lab's PCs)
-
-In case that you cannot access the DRCAV's server you may connect to a MySQL server running on localhost: DB: edcav, user: edcav and password: edcav.
+* host: 127.0.0.1
+* port: 3306
+* user: edcav
+* password: edcav
+* schema: (leave it blank)
 
 ## 4. Selecting the database to work with
 
-Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type (replacing X for your database number):
+Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type:
 
-	USE edcavX;
+	USE edcav;
 
 ## 5. Creating tables, first examples
 
