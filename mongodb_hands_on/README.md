@@ -76,8 +76,7 @@ The following creates a new collection with one document:
 
 Let's add another document:
 
-    >db.restcol.insert(
-   {
+    >db.restcol.insert({
       "address" : {
          "street" : "Sor Eulalia dAnzizu, 45",
          "zipcode" : "08034",
