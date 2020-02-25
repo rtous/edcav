@@ -34,7 +34,7 @@ On each lab's PC you will find a MySQL Community Server installed and awaiting c
 Click the "+" option (new connection) and specify the connection parameters: 
 
 * host: 127.0.0.1
-* port: 3306
+* port: 3306 (default∫)
 * user: edcav
 * password: edcav
 * schema: (leave it blank)
@@ -294,7 +294,7 @@ Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
 ### A1.2 Install and launch a MySQL server
 
-You need a local MySQL server because the server at edcav.upc.es only can be accessed from UPC IP addresses. If you don't have Docker you need to install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). If you have Docker you can just pull and run an msql-server image:
+If you don't have Docker you need to install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). If you have Docker you can just pull and run an msql-server image:
 
 	docker pull mysql/mysql-server:latest
 	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest

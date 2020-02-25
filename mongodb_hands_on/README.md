@@ -2,7 +2,7 @@
 
 ## 1.	Introduction
 
-This session is intended to help the student to get started with MongoDB, a NoSQL ( document-oriented) database management system.
+This session is intended to help the student to get started with MongoDB, a NoSQL (document-oriented) database management system.
 
 ## 2.	Install MongoDB
 
@@ -12,10 +12,12 @@ If you want to work with your personal computer and a local MongoDB server, but 
 
 ### 2.2 Install a local MongoDB server
 
-Once you have Docker up and running you can pull and run a MongoDB image:
+If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image:
 
 	docker pull mongo
 	docker run -it --name=mongo -p 27017:27017 -d mongo
+
+You don't need a shared folder (a volume) this time. 
 
 ### 2.3 Install a local MongoDB Compass (OPTIONAL)
 
@@ -24,6 +26,7 @@ A convenient way to interact with your MongoDB server is MongoDB Compass, a GUI.
 However, if you don't want to install Compass you can directly use the MongoDB shell this way:
 
 	docker exec -it mongo bash
+	root@813847d78b39:/# mongo
 
 ## 3. Selecting the database to work with
 
