@@ -15,14 +15,16 @@ If you don't have Docker you need to install a MongoDB server following [this in
 
 You don't need a shared folder (a volume) this time. 
 
-### 2.2 Install a local MongoDB Compass (OPTIONAL)
+### 2.2 The client. Use MongoDB shell or, optionally, install MongoDB Compass
 
-A convenient way to interact with your MongoDB server is MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass).
-
-However, if you don't want to install Compass you can directly use the MongoDB shell this way:
+MongoDB comes with a shell client. On Docker you can execute it this way:
 
 	docker exec -it mongo bash
 	root@813847d78b39:/# mongo
+
+If you don't work over Docker you can run "mongo" directly from a terminal.
+
+However, a more convenient way to interact with your MongoDB server is MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass).
 
 ## 3. Selecting the database to work with
 
