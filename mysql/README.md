@@ -226,7 +226,7 @@ Now, try yourself specifying the SQL statement that will allow you to obtain the
 
 3. (selection) Show the users with password = "1234"
 
-4. (join between likes and photos) For all the 'likes', show username, the filename and the title of the related photo.
+4. (join between likes and photos) For all the 'likes' show the username, and the filename and title of the related photo.
 
 5. (aggregate functions) Show how many likes does "photo1.jpg" have.
 
