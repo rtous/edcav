@@ -48,8 +48,7 @@ If you have MongoDB Compass you can check that the drcavdb database has been cre
 
 The following creates a new collection with one document:
 
-	>db.restcol.insert(
-   {
+	>db.restcol.insert({
 	      "address" : {
 	         "street" : "2 Avenue",
 	         "zipcode" : "10075",
