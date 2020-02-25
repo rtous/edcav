@@ -22,9 +22,9 @@ However, if you have Windows 10 Home you can only install [Docker Toolbox](https
 
 ## Additional information
 
-* You can find a summary of the Docker commands [here](../docker_userguide.md).
+* You can find a summary of the Docker commands [here](docker_userguide.md).
 
-* If you need to launch an Ubuntu container you can find help [here](../docker_ubuntu.md).
+* If you need to launch an Ubuntu container you can find help [here](docker_ubuntu.md).
 
 
 

@@ -1,6 +1,6 @@
 # Launch an Ubuntu Docker container
 
-* Instructions for installing Docker [here](../docker.md).
+* Instructions for installing Docker [here](docker.md).
 
 ## Create a working directory
 
