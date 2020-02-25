@@ -6,20 +6,16 @@ This session is intended to help the student to get started with MongoDB, a NoSQ
 
 ## 2.	Install MongoDB
 
-### 2.1 Install Docker
+### 2.1 Install a local MongoDB server
 
-If you want to work with your personal computer and a local MongoDB server, but you don't want to mess up your OS, you may find convenient to work over Docker. If you don't have Docker already installed follow the instructions [here](../docker.md).
-
-### 2.2 Install a local MongoDB server
-
-If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image:
+If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image (instructions for installing Docker [here](../docker.md)):
 
 	docker pull mongo
 	docker run -it --name=mongo -p 27017:27017 -d mongo
 
 You don't need a shared folder (a volume) this time. 
 
-### 2.3 Install a local MongoDB Compass (OPTIONAL)
+### 2.2 Install a local MongoDB Compass (OPTIONAL)
 
 A convenient way to interact with your MongoDB server is MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass).
 
