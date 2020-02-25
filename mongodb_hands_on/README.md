@@ -15,7 +15,7 @@ If you don't have Docker you need to install a MongoDB server following [this in
 
 You don't need a shared folder (a volume) this time. 
 
-### 2.2 The client. Use MongoDB shell or, optionally, install MongoDB Compass
+### 2.2 Connecting with a client: MongoDB shell and MongoDB Compass
 
 MongoDB comes with a shell client. On Docker you can execute it this way:
 
@@ -24,11 +24,13 @@ MongoDB comes with a shell client. On Docker you can execute it this way:
 
 If you don't work over Docker you can run "mongo" directly from a terminal.
 
-However, a more convenient way to interact with your MongoDB server is MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass).
+We will work on the shell, but it will be convenient to install MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass). Using MongoDB Compass is optional. Once you have Compass installed you have to enter this connection URL:
+	
+	mongodb://localhost:27017
 
 ## 3. Selecting the database to work with
 
-The following will inform you about the current active database:
+From the MongoDB shell, the following will inform you about the current active database:
 
 	>db
 
@@ -40,9 +42,11 @@ you can get info about the new database this way:
 
 	>db.stats()
 
+If you have MongoDB Compass you can check that the drcavdb database has been created.
+
 ## 4. Working with collections
 
-The following creates a new collection:
+The following creates a new collection with one document:
 
 	>db.restcol.insert(
    {
@@ -71,6 +75,8 @@ The following creates a new collection:
 	   }
 	)
 
+Let's add another document:
+
     >db.restcol.insert(
    {
       "address" : {
@@ -95,6 +101,8 @@ The following creates a new collection:
       "restaurant_id" : "10000"
    }
 )
+
+If you have MongoDB Compass you can use it to visualize the inserted documents.
 
 ## 5. Querying
 
