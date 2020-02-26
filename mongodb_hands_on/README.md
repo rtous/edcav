@@ -140,7 +140,7 @@ If you have MongoDB Compass you can use it to visualize the inserted documents. 
       ]
 	}
 
-Notice that dates ("dateCreated" field) work slightly different on compass. 
+Notice that dates ("dateCreated" field) work slightly different on Compass. 
 
 Now try to add a document with a different structure;
 
@@ -203,8 +203,6 @@ Let's first install the required dependencies:
 	root@813847d78b39:/# apt-get install -y python
 	root@813847d78b39:/# apt-get install -y python-pip
 	root@813847d78b39:/# pip install pymongo
-
-	pymongo
 
 Let's now create the program that will send requests to the MongoDB server (a client program). You can do it from the terminal (from the drcav directory):
 	
