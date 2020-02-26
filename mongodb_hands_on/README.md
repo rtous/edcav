@@ -8,18 +8,51 @@ This session is intended to help the student to get started with MongoDB, a NoSQ
 
 ### 2.1 Install a local MongoDB server
 
-If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image (instructions for installing Docker [here](../docker.md)):
+If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image (instructions for installing Docker [here](../docker.md)). 
 
-	docker pull mongo
-	docker run -it --name=mongo -p 27017:27017 -d mongo
+#### Install a MongoDB server with Docker
 
-You don't need a shared folder (a volume) this time. 
+Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory:
+
+* /Users/YOUR_USER_NAME/drcav in Mac
+* /home/YOUR_USER_NAME/drcav in Linux
+* C:\Users\YOUR_USER_NAME\drcav in Windows
+
+On Mac and Linux you can check your home directory by typing "echo $HOME" in a terminal. On Windows you can type "echo %cd%" in a terminal.
+
+Now let's pull and run a MongoDB Docker container (replace YOUR_PATH with the local path to the drcav directory):
+
+	docker run -it --name=mongo -v YOUR_PATH/drcav:/drcav -p 27017:27017 -d mongo
+
+On Windows 10, if you are running Docker Desktop (not Docker Toolbox), use a typical Windows path, e.g.:
+
+	docker run -it --name=mongo -v C:\Users\YOUR_USER_NAME\drcav:/drcav -p 27017:27017 -d mongo
+
+On Windows 10 Home (Docker Toolbox):
+
+	docker run -it --name=mongo -v //c/Users/YOUR_USER_NAME/drcav:/drcav -p 27017:27017 -d mongo
+
+This time you won't see the container's bash prompt (we are not exectuing "bash" at the end of the command), but the container should be running in the background. You can check if the container is running this way:
+
+	docker ps -a
+
+If you enter a wrong command by mistake you can delete the container this way:
+
+	docker stop mongo
+	docker rm mongo
 
 ### 2.2 Connecting with a client: MongoDB shell and MongoDB Compass
 
 MongoDB comes with a shell client. On Docker you can execute it this way:
 
 	docker exec -it mongo bash
+
+Then you should see the typical Docker prompt, something like this:
+
+	root@813847d78b39:/# 
+
+Let's now run the MongoDB shell:
+
 	root@813847d78b39:/# mongo
 
 If you don't work over Docker you can run "mongo" directly from a terminal.
@@ -27,6 +60,7 @@ If you don't work over Docker you can run "mongo" directly from a terminal.
 We will work on the shell, but it will be convenient to install MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass). Using MongoDB Compass is optional. Once you have Compass installed you have to enter this connection URL:
 	
 	mongodb://localhost:27017
+
 
 ## 3. Selecting the database to work with
 
@@ -156,6 +190,47 @@ And regular expressions:
 	You can filter by date:
 
 	> db.photos.find({"title": /Photo/})
-     
 
+Exit the MongoDB shell
+
+	> exit
+
+## 6. Accessing MongoDB from Python code (OPTIONAL)
+
+Let's first install the required dependencies:
+
+	root@813847d78b39:/# apt-get update
+	root@813847d78b39:/# apt-get install -y python
+	root@813847d78b39:/# apt-get install -y python-pip
+	root@813847d78b39:/# pip install pymongo
+
+	pymongo
+
+Let's now create the program that will send requests to the MongoDB server (a client program). You can do it from the terminal (from the drcav directory):
+	
+	touch MyMongoClient.py
+
+Now edit the file and copy there the following code:
+
+	import pymongo
+
+	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+	mydb = myclient["drcavdb"]
+	print("You are successfully connected to MongoDB!")
+
+Let's extend our code to query our "photos" collection:
+
+	import pymongo
+
+	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+	mydb = myclient["drcavdb"]
+	mycol = mydb["photos"]
+	myquery = { "title": "Photo1" }
+	mydoc = mycol.find(myquery)
+	for x in mydoc:
+		print(x)
+
+## 13.	Delivery
+
+Deliver a text file with the output of the different commands (or some screenshots within a .pdf file) through the proper section within http://atenea.upc.edu. 
 
