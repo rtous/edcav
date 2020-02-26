@@ -48,88 +48,94 @@ If you have MongoDB Compass you can check that the drcavdb database has been cre
 
 The following creates a new collection with one document:
 
-	>db.restcol.insert({
-	      "address" : {
-	         "street" : "2 Avenue",
-	         "zipcode" : "10075",
-	         "building" : "1480",
-	         "coord" : [ -73.9557413, 40.7720266 ]
+	>db.photos.insert({
+	      "title" : "Photo1",
+	      "dateCreated":{"$date":"2020-02-01"}, 
+	      "coord" : {
+	         "lat" : -73.9557413,
+	         "long" : 40.7720266,
+	         "height" : 1439.2
 	      },
-	      "borough" : "Manhattan",
-	      "cuisine" : "Italian",
-	      "grades" : [
+	      "comments" : [
 	         {
-	            "date" : ISODate("2014-10-01T00:00:00Z"),
-	            "grade" : "A",
-	            "score" : 11
+	            "author" : "User1",
+	            "comment" : "Nice photo"
 	         },
 	         {
-	            "date" : ISODate("2014-01-16T00:00:00Z"),
-	            "grade" : "B",
-	            "score" : 17
+	            "author" : "User2",
+	            "comment" : "Like this one"
 	         }
-	      ],
-	      "name" : "Vella",
-	      "restaurant_id" : "41704620"
+	      ]
 	   }
 	)
 
 Let's add another document:
 
-    >db.restcol.insert({
-      "address" : {
-         "street" : "Sor Eulalia dAnzizu, 45",
-         "zipcode" : "08034",
-      },
-      "borough" : "Pedralbes",
-      "cuisine" : "Spanish",
-      "grades" : [
-         {
-            "date" : ISODate("2014-10-01T00:00:00Z"),
-            "grade" : "A",
-            "score" : 11
-         },
-         {
-            "date" : ISODate("2014-01-16T00:00:00Z"),
-            "grade" : "B",
-            "score" : 17
-         }
-      ],
-      "name" : "Casa Cantabria",
-      "restaurant_id" : "10000"
-   }
-)
+    >db.photos.insert({
+	      "title" : "Photo2",
+	      "dateCreated":{"$date":"2020-02-02"}, 
+	      "coord" : {
+	         "lat" : -73.9557413,
+	         "long" : 40.7720266,
+	         "height" : 1439.2
+	      },
+	      "comments" : [
+	         {
+	            "author" : "User1",
+	            "comment" : "Nice"
+	         }
+	      ]
+	   }
+	)
 
-If you have MongoDB Compass you can use it to visualize the inserted documents.
+If you have MongoDB Compass you can use it to visualize the inserted documents. You an also insert documents with Compass. Click the ADD DATA button and try the Add Document functionality adding this one:
+
+    {
+	      "title" : "Photo3",
+	      "dateCreated":{"$date":"2020-02-03"} 
+	}
+
+If you are not using Compass let's try inserting that document with the shell. Notice that MongoDB doesn't care that the document has a different structure.
+
+On the shell you can visualize all the documents this way:
+
+	db.photos.find()
+
+On the shell you can remove all the documents this way:
+
+	db.photos.remove({})
 
 ## 5. Querying
 
-     > db.restcol.find()
-     > db.restcol.find().pretty()
-     > db.restcol.find( { "borough": "Manhattan" } )
-     > db.restcol.find( { "address.zipcode": "10075" } )
-     > db.restcol.find( { "cuisine": "Italian", "address.zipcode": "10075" } )
-     > db.restcol.find( { "cuisine": "Spanish" } )
+On the shell you can query all documents and pretty print them this way:
 
+     > db.photos.find().pretty()
 
-     > db.restcol.find(
+You can find documents with title "Photo2" this way:
+
+     > db.photos.find( { "title": "Photo2" } )
+
+On Compass, you can do the same by typing { "title": "Photo2" } into the FILTER field.
+
+You can apply boolean conditions:
+
+	> db.photos.find(
 	   {
 	      $or: [
-	         {"cuisine": "Italian"}, {"cuisine": "Spanish"}
+	         {"title": "Photo1"}, {"title": "Photo2"}
 	      ]
 	   }
-		).pretty()
+	)
 
-## 6. Updating and removing
+You can filter by date:
 
-     > db.restcol.update(
-		    { "name" : "Casa Cantabria" },
-		    {
-		      $set: { "cuisine": "Cantabric" },
-		      $currentDate: { "lastModified": true }
-		    }
-		)
-    
-    >db.restcol.remove( { "borough": "Manhattan" } )
+	> db.photos.find( { dateCreated: { $gt: Date('2000-06-22') } } )
+
+And regular expressions:
+
+	You can filter by date:
+
+	> db.photos.find({"title": /Photo/})
+     
 
 
