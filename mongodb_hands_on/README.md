@@ -32,7 +32,7 @@ We will work on the shell, but it will be convenient to install MongoDB Compass,
 
 From the MongoDB shell, the following will inform you about the current active database:
 
-	>db
+	> db
 
 Let's create and activate a new database:
 
@@ -40,7 +40,7 @@ Let's create and activate a new database:
 
 you can get info about the new database this way:
 
-	>db.stats()
+	> db.stats()
 
 If you have MongoDB Compass you can check that the drcavdb database has been created.
 
@@ -48,9 +48,9 @@ If you have MongoDB Compass you can check that the drcavdb database has been cre
 
 The following creates a new collection with one document:
 
-	>db.photos.insert({
+	> db.photos.insert({
 	      "title" : "Photo1",
-	      "dateCreated":{"$date":"2020-02-01"}, 
+	      "dateCreated": ISODate("2020-02-01T00:00:00Z"), 
 	      "coord" : {
 	         "lat" : -73.9557413,
 	         "long" : 40.7720266,
@@ -71,9 +71,9 @@ The following creates a new collection with one document:
 
 Let's add another document:
 
-    >db.photos.insert({
+    > db.photos.insert({
 	      "title" : "Photo2",
-	      "dateCreated":{"$date":"2020-02-02"}, 
+	      "dateCreated": ISODate("2020-02-02T00:00:00Z"), 
 	      "coord" : {
 	         "lat" : -73.9557413,
 	         "long" : 40.7720266,
@@ -90,30 +90,50 @@ Let's add another document:
 
 If you have MongoDB Compass you can use it to visualize the inserted documents. You an also insert documents with Compass. Click the ADD DATA button and try the Add Document functionality adding this one:
 
-    {
-	      "title" : "Photo3",
-	      "dateCreated":{"$date":"2020-02-03"} 
+	{
+      "title" : "Photo3",
+      "dateCreated":{"$date":"2020-02-03"},
+      "coord" : {
+         "lat" : -73.9557413,
+         "long" : 40.7720266,
+         "height" : 1439.2
+      },
+      "comments" : [
+         {
+            "author" : "User1",
+            "comment" : "Nice"
+         }
+      ]
 	}
 
-If you are not using Compass let's try inserting that document with the shell. Notice that MongoDB doesn't care that the document has a different structure.
+Notice that dates ("dateCreated" field) work slightly different on compass. 
+
+Now try to add a document with a different structure;
+
+    {
+	      "title" : "Photo4"
+	}
+
+
+Notice that MongoDB doesn't care that the document has a different structure.
 
 On the shell you can visualize all the documents this way:
 
-	db.photos.find()
+	> db.photos.find()
 
 On the shell you can remove all the documents this way:
 
-	db.photos.remove({})
+	> db.photos.remove({})
 
 ## 5. Querying
 
 On the shell you can query all documents and pretty print them this way:
 
-     > db.photos.find().pretty()
+     >db.photos.find().pretty()
 
 You can find documents with title "Photo2" this way:
 
-     > db.photos.find( { "title": "Photo2" } )
+     >db.photos.find( { "title": "Photo2" } )
 
 On Compass, you can do the same by typing { "title": "Photo2" } into the FILTER field.
 
@@ -129,7 +149,7 @@ You can apply boolean conditions:
 
 You can filter by date:
 
-	> db.photos.find( { dateCreated: { $gt: Date('2000-06-22') } } )
+	> db.photos.find( { dateCreated: { $gt: ISODate('2000-06-22') } } )
 
 And regular expressions:
 
