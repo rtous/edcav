@@ -88,7 +88,7 @@ Enter the Python shell again as we did before. Let’s now count the words with 
 
 Finally, check the contents of output files within the "results" directory.
 
-Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. An RDD is a collection of elements that can be operated on in parallel. The operations that you define over an RDD do not refer to a particular item, but to any partition of the RDD. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.   
+Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. An RDD is a collection of elements that can be operated in parallel. The operations that you define over an RDD do not refer to a particular item, but to any partition of the RDD. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.   
 
 Let's execute the previous example step by step. First we split the input file into lines:
 
