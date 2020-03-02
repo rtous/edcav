@@ -7,23 +7,20 @@ This session is intended to help the student to get started with Apache Spark, a
 
 ## 2.	Environment settings
 
-In order to be able to perform the different tasks you should:
+The setup required to be able to perform the diferent exercises are:
+
+1. Java 6 or higher
+2. Python 2.7 or higher
+3. Python's numpy package installed
+
+On the lab's PCs all these requirements are already satisfied. To work on the lab's PCs you should:
 
 - Boot the PC with the Linux image (preferable) or Windows 
 - Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
+The following sections assume that you are working on the lab's PC's. If you prefer to work with your laptop let's take a look to ANNEX 1.
+
 ## 3.	Install Spark
-
-Spark requires Java 6 or higher. As we are going to use the Python interactive shell we will need Python 2.6 or higher: 
-
-	$ java –version
-	$ python -V
-
-For the examples we will need numpy. If you don't have it installed let's do a: 
-
-	pip install numpy
-
-(If you don't have pip installed do a "sudo apt-get install python-pip")
 
 First of all, we need to download the Spark environment. To do that, we can just execute the following command:
 
@@ -56,10 +53,9 @@ You can exit the Python shell just typing:
 
 	>>>quit()
 
-Troubleshooting: If it reports a problem binding to localhost perform the following actions: 
+Troubleshooting: If it reports a problem binding to localhost type the following:
 
-*	Rename file spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template to spark-env.sh
-*	Edit spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh and set SPARK_LOCAL_IP=127.0.0.1
+	echo "SPARK_LOCAL_IP=127.0.0.1" > spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
  
 ## 4.	Example “word count” application
 
@@ -92,10 +88,32 @@ Enter the Python shell again as we did before. Let’s now count the words with 
 
 Finally, check the contents of output files within the "results" directory.
 
-Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.
+Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. An RDD is a collection of elements that can be operated on in parallel. The operations that you define over an RDD do not refer to a particular item, but to any partition of the RDD. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.   
 
-Once created, RDDs offer two types of operations: transformations and actions. Transformations construct a new RDD from a previous one. In our text file example, flatMap, map and reduceByKey are transformations. Spark only computes transformations in a lazy fashion, the first time they are used in an action (e.g. first() or saveAsTextFile(…) are actions). 
+Let's execute the previous example step by step. First we split the input file into lines:
 
+	>>> linesRDD = sc.textFile("example1.txt")
+	>>> linesRDD.foreach(show)
+
+The obtained linesRDD is a Resilient Distributed Dataset (RDD). Once created, RDDs offer two types of operations: transformations and actions. Transformations construct a new RDD from a previous one. Let's transform linesRDD by splitting each line into words (a new RDD).
+
+	>>> words = linesRDD.flatMap(lambda line: line.split(" "))
+
+The flatMap transformation is not executed till an action requires it, such as the following:
+
+	>>> words.foreach(show)
+
+Let's map each word into a tuple (word, 1):
+
+	>>> count = words.map(lambda word: (word, 1)) count.foreach(show)
+	>>> words.foreach(show)
+
+Finally, we apply an operation (sum) to all the tuples with the same key (word). This is the reduce operation:
+
+	>>> counts = count.reduceByKey(lambda a, b: a + b) 
+	>>> counts.foreach(show)
+
+This may seem too complicated to count a bunch of words. The advantage is that each stage can be performed in parallel by many computers.
 
 ## 5.	Simple clustering example (K-Means)
 
@@ -301,4 +319,41 @@ And split the data into trainingData and testData.
 
 A .txt file containing the output of all the commands have to be delivered through the proper section within http://atenea.upc.edu
 
+
+## ANNEX 1.	Alternative setup with your own computer
+
+### A1.1 With Docker
+
+In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker_ubuntu.md). Additionally, you should install some dependencies:
+
+	root@813847d78b39:/# apt-get install -y python
+	root@813847d78b39:/# apt-get install -y python-pip
+	root@813847d78b39:/# apt-get pip install numpy
+	root@813847d78b39:/# apt-get install default-jdk
+
+You can then jump to section 3.
+
+### A1.2 Direct installation (without Docker)
+
+#### Linux, Mac and WSL users 
+
+If you prefer to just install everything in your OS let's first ensure that you have the required dependencies (Java, Python, numpy):
+
+	$ java –version
+	$ python -V
+	$ python
+	>>> import numpy
+
+Then you can jump to section 3. 
+
+#### Windows users 
+
+Running Spark on Windows is slightly more difficult. First you need to be sure that you meet the following dependencies (we don't provide help for that):
+
+1. Java 6 or higher
+2. Python 2.7 or higher
+3. Python's numpy package installed
+4. Windows binaries for Hadoop versions (winutils)
+
+If everything is ok they you can download Spark from https://spark.apache.org/. You have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.2.1-bin-hadoop2.7). Unpack the ...tgz into C:/spark, move there and run bin\pyspark.
 
