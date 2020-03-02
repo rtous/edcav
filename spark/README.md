@@ -12,7 +12,6 @@ In order to be able to perform the different tasks you should:
 - Boot the PC with the Linux image (preferable) or Windows 
 - Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
-
 ## 3.	Install Spark
 
 Spark requires Java 6 or higher. As we are going to use the Python interactive shell we will need Python 2.6 or higher: 
