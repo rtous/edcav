@@ -119,7 +119,7 @@ What you see it's the Spark's web UI, that displays useful information about the
 
 	>>> wordsRDD.foreach(show)
 
-You see the list of words. If now you check the Spark's web UI again you will see that there's a completed job. From the chain of transformations Spark constructs an exectution plan (a DAG, a directed acyclic graph). The computation is splitted into stages which in turn are splitted into tasks. You an see the DAG of what we executed with the "DAG Visualization" option in the web UI.
+You see the list of words. If now you check the Spark's web UI again you will see that there's a completed job. From the chain of transformations Spark constructs an exectution plan (a DAG, a directed acyclic graph). The computation is splitted into stages which in turn are splitted into tasks. You an see the DAG of what we executed with the "DAG Visualization" option in the web UI. You can see which things happened in parallel through the "Event Timeline".
 
 Let's complete our "word count" application. We will transform each word in a tuple (word, 1):
 
