@@ -305,6 +305,8 @@ Let's compute the regression model:
 	>>> print("Coefficients: %s" % str(lrModel.coefficients))
 	>>> print("Intercept: %s" % str(lrModel.intercept))
 
+In case you are interested, the explanation of the "regParam" and "elasticNetParam" params can be found [here](https://spark.apache.org/docs/1.5.2/ml-linear-methods.html).
+
 Let's use the model to do some predictions
 
 	>>> predictions = lrModel.transform(testData)
