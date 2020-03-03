@@ -93,55 +93,57 @@ which has the following content (accents removed to avoid encoding problems):
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
 	astillero, adarga antigua, rocín flaco y galgo corredor.
 
-Enter the Python shell again as we did before. Let’s now count the words with Spark:
+Enter the Python shell again as we did before.
+
+Let's first define a function that will help us displaying things:
 
 	>>> def show (x): print x
 
 	(type return again when you see "...")
 
-	>>> linesRDD = sc.textFile("example1.txt")
-	>>> linesRDD.foreach(show)
-	>>> countsRDD = linesRDD.flatMap(lambda line: line.split(" ")) \
-             .map(lambda word: (word, 1)) \
-             .reduceByKey(lambda a, b: a + b)
-    >>> countsRDD.foreach(show)
-	>>> countsRDD.first()
-	>>> countsRDD.saveAsTextFile("results")
-
-Finally, check the contents of output files within the "results" directory.
-
-Now that you have run your first Spark code using the shell, it’s time learn about programming in it in more detail. In Spark we express our computation through operations on distributed collections that are automatically parallelized across the cluster. These collections are called Resilient Distributed Datasets, or RDDs. An RDD is a collection of elements that can be operated in parallel. The operations that you define over an RDD do not refer to a particular item, but to any partition of the RDD. In the example above, the variable called linesRDD is an RDD, created here from a text file on our local machine.   
-
-Let's execute the previous example step by step. First we split the input file into lines:
+Let’s now enter the code of the "word count" application. First we split the input file into lines:
 
 	>>> linesRDD = sc.textFile("example1.txt")
-	>>> linesRDD.foreach(show)
 
-The obtained linesRDD is a Resilient Distributed Dataset (RDD). Once created, RDDs offer two types of operations: transformations and actions. Transformations construct a new RDD from a previous one. Let's transform linesRDD by splitting each line into words (a new RDD).
+The obtained linesRDD is a Resilient Distributed Dataset (RDD). An RDD is a collection of elements that can be operated in parallel. The operations that you define over an RDD do not refer to a particular item, but to any partition of the RDD. In Spark we express our computation through operations on RDDs. Once created, RDDs offer two types of operations: transformations and actions. Transformations construct a new RDD from a previous one. Let's transform linesRDD by splitting each line into words (a new RDD):  
 
-	>>> words = linesRDD.flatMap(lambda line: line.split(" "))
+	>>> wordsRDD = linesRDD.flatMap(lambda line: line.split(" "))
 
-The flatMap transformation is not executed till an action requires it, such as the following:
-
-	>>> words.foreach(show)
-
-Let's map each word into a tuple (word, 1):
-
-	>>> count = words.map(lambda word: (word, 1)) count.foreach(show)
-	>>> words.foreach(show)
-
-Finally, we apply an operation (sum) to all the tuples with the same key (word). This is the reduce operation:
-
-	>>> counts = count.reduceByKey(lambda a, b: a + b) 
-	>>> counts.foreach(show)
-
-This may seem too complicated to count a bunch of words. The advantage is that each stage can be performed in parallel by many computers.
+But, you see no results. All transformations in Spark are "lazy", are not executed till it's necessary (till an "action" is executed, such as displaying the results). When an action is requested the chain of transformations are submitted to the cluster as a "job". 
 
 Let's open your browser and open the following address:
 	
 	http://localhost:4040/
 
-What you see it's the Spark's web UI, that displays useful information about the application (scheduler stages and tasks, RDD sizes and memory usage, etc.).
+What you see it's the Spark's web UI, that displays useful information about the application (scheduler stages and tasks, RDD sizes and memory usage, etc.). You see that there isn't any completed job yet. Let's exectue an action, for instance:
+
+	>>> wordsRDD.foreach(show)
+
+You see the list of words. If now you check the Spark's web UI again you will see that there's a completed job. From the chain of transformations Spark constructs an exectution plan (a DAG, a directed acyclic graph). The computation is splitted into stages which in turn are splitted into tasks. You an see the DAG of what we executed with the "DAG Visualization" option in the web UI.
+
+Let's complete our "word count" application. We will transform each word in a tuple (word, 1):
+
+	>>> tuplesRDD = words.map(lambda word: (word, 1)) count.foreach(show)
+	>>> tuplesRDD.foreach(show)
+
+Finally, we apply an operation (sum) to all the tuples with the same key (word). This is the reduce operation:
+
+	>>> countsRDD = tuplesRDD.reduceByKey(lambda a, b: a + b) 
+	>>> countsRDD.foreach(show)
+
+You can save the results to disk:
+
+	>>> countsRDD.saveAsTextFile("results")
+
+Check the contents of output files within the "results" directory. The results may be partitioned as they may come from multiple nodes.
+
+There's a more compact option to write this code:
+
+	>>> countsRDD = linesRDD.flatMap(lambda line: line.split(" ")) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+
+This may seem too complicated to count a bunch of words. The advantage is that each stage can be performed in parallel by many computers.
 
 
 ## 5.	Simple clustering example (K-Means)
