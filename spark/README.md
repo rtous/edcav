@@ -109,7 +109,7 @@ The obtained linesRDD is a Resilient Distributed Dataset (RDD). An RDD is a coll
 
 	>>> wordsRDD = linesRDD.flatMap(lambda line: line.split(" "))
 
-But, you see no results. All transformations in Spark are "lazy", are not executed till it's necessary (till an "action" is executed, such as displaying the results). When an action is requested the chain of transformations are submitted to the cluster as a "job". 
+But you see no results :-( All transformations in Spark are "lazy", they are not executed till it's necessary (till an "action" is executed, such as displaying the results). When an action is requested, the chain of transformations is submitted to the cluster as a "job". 
 
 Let's open your browser and open the following address:
 	
@@ -123,7 +123,7 @@ You see the list of words. If now you check the Spark's web UI again you will se
 
 Let's complete our "word count" application. We will transform each word in a tuple (word, 1):
 
-	>>> tuplesRDD = words.map(lambda word: (word, 1)) count.foreach(show)
+	>>> tuplesRDD = words.map(lambda word: (word, 1))
 	>>> tuplesRDD.foreach(show)
 
 Finally, we apply an operation (sum) to all the tuples with the same key (word). This is the reduce operation:
