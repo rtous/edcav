@@ -123,7 +123,7 @@ You see the list of words. If now you check the Spark's web UI again you will se
 
 Let's complete our "word count" application. We will transform each word in a tuple (word, 1):
 
-	>>> tuplesRDD = words.map(lambda word: (word, 1))
+	>>> tuplesRDD = wordsRDD.map(lambda word: (word, 1))
 	>>> tuplesRDD.foreach(show)
 
 Finally, we apply an operation (sum) to all the tuples with the same key (word). This is the reduce operation:
