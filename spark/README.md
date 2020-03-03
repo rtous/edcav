@@ -9,7 +9,7 @@ This session is intended to help the student to get started with Apache Spark, a
 
 The setup required to be able to perform the diferent exercises are:
 
-1. Java 6 or higher
+1. Java 8 (WARNING: It does not work with later versions!)
 2. Python 2.7 or higher
 3. Python's numpy package installed
 
@@ -72,7 +72,13 @@ Contains this option:
 Otherwise, let's copy the template file and add "SPARK_LOCAL_IP=127.0.0.1" somewhere.
 
 	cp spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
- 
+
+## 3.2 Open a second terminal
+
+It will be convenient to have two terminals opened at the same time. On the lab's PCs you just need to type CTRL+ALT+T. If you are working with Docker you need to open a second terminal in your laptop and run:
+
+	docker exec -it drcav bash
+
 ## 4.	Example “word count” application
 
 Download example1.txt:
@@ -130,6 +136,13 @@ Finally, we apply an operation (sum) to all the tuples with the same key (word).
 	>>> counts.foreach(show)
 
 This may seem too complicated to count a bunch of words. The advantage is that each stage can be performed in parallel by many computers.
+
+Let's open your browser and open the following address:
+	
+	http://localhost:4040/
+
+What you see it's the Spark's web UI, that displays useful information about the application (scheduler stages and tasks, RDD sizes and memory usage, etc.).
+
 
 ## 5.	Simple clustering example (K-Means)
 
@@ -346,7 +359,8 @@ In order to perform this lab assignment over Docker you could run an Ubuntu cont
 	root@813847d78b39:/# apt-get install -y python
 	root@813847d78b39:/# apt-get install -y python-pip
 	root@813847d78b39:/# pip install numpy
-	root@813847d78b39:/# apt-get install default-jdk
+	root@813847d78b39:/# apt-get install -y openjdk-8-jre
+	root@813847d78b39:/# apt-get install -y wget
 
 You can then jump to section 3.
 
@@ -354,7 +368,7 @@ You can then jump to section 3.
 
 #### Linux, Mac and WSL users 
 
-If you prefer to just install everything in your OS let's first ensure that you have the required dependencies (Java, Python, numpy):
+If you prefer to just install everything in your OS let's first ensure that you have the required dependencies (Java 8, Python, numpy):
 
 	$ java –version
 	$ python -V
