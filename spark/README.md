@@ -340,11 +340,12 @@ A .txt file containing the output of all the commands have to be delivered throu
 
 ### A1.1 With Docker
 
-In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker_ubuntu.md). Additionally, you should install some dependencies:
+In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker_ubuntu.md), but adding the port 4040 to the port mappings. Additionally, you should install some dependencies:
 
+	root@813847d78b39:/# apt-get update
 	root@813847d78b39:/# apt-get install -y python
 	root@813847d78b39:/# apt-get install -y python-pip
-	root@813847d78b39:/# apt-get pip install numpy
+	root@813847d78b39:/# pip install numpy
 	root@813847d78b39:/# apt-get install default-jdk
 
 You can then jump to section 3.
