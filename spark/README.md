@@ -32,7 +32,11 @@ Once we have the tarball file, we need to uncompress it:
 
 	$ tar -xvzf spark-2.2.1-bin-hadoop2.7.tgz
 
-Let’s execute the interactive Python shell:
+Then, to avoid a problem binding to localhost, execute the following:
+
+	echo "SPARK_LOCAL_IP=127.0.0.1" > spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
+
+Let’s now execute the interactive Python shell:
 
 	$ spark-2.2.1-bin-hadoop2.7/bin/pyspark
 
@@ -53,9 +57,21 @@ You can exit the Python shell just typing:
 
 	>>>quit()
 
-Troubleshooting: If it reports a problem binding to localhost type the following:
+## 3.1 Troubleshooting
 
-	echo "SPARK_LOCAL_IP=127.0.0.1" > spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
+If everything went fine skip this subsection. 
+
+If, during startup, it reports a problem binding to localhost check that this file:
+
+	cat spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
+
+Contains this option:
+
+	SPARK_LOCAL_IP=127.0.0.1
+
+Otherwise, let's copy the template file and add "SPARK_LOCAL_IP=127.0.0.1" somewhere.
+
+	cp spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
  
 ## 4.	Example “word count” application
 
