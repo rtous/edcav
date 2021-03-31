@@ -18,69 +18,43 @@ Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
 ### 2.2 Install and launch a MySQL server
 
-Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
+*NOTE: See ANNEX 1 if you want to launch MySQL server from a Docker container*
 
-*(optional) with Docker*
-
-*If you use Docker you can just pull and run an msql-server image:*
-
-	docker pull mysql/mysql-server:latest
-	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
-
-*In order to know which root password was given do (wait some seconds before):*
-
-	docker logs drcav1 
-
-And take notice of the root password. 
+Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/).  
 
 ### 2.3 Create a non-root user and a database
 
 By default you cannot access the server with the root user using MySQL Workbench. So you need to perform the following step using the command-line client. 
 
-In case you installed MySQL without Docker then you just execute in the terminal:
+Execute in the terminal:
 
 	mysql -u root -p
 
 Once you see the client's "mysql>" prompt type:
 
-	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'edcav';
-	mysql>CREATE DATABASE IF NOT EXISTS edcav1;
-	mysql>CREATE USER 'edcav1'@'%' IDENTIFIED BY 'edcav';
-	mysql>GRANT ALL PRIVILEGES ON edcav1.* to 'edcav1'@'%';
+	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'drcav';
+	mysql>CREATE DATABASE IF NOT EXISTS drcav1;
+	mysql>CREATE USER 'drcav1'@'%' IDENTIFIED BY 'drcav';
+	mysql>GRANT ALL PRIVILEGES ON drcav1.* to 'drcav1'@'%';
 	mysql>exit;
 
-If your installed MySQL with Docker let's execute:
+## 3. Connecting to a MySQL server
 
-	docker exec -it drcav1 mysql -uroot -p
-
-### 2.4 Connect with MySQL Workbench
-
-Launch MySQL Workbench and connect to the server:
-
-![alt text](mysqlworkbench_docker.png "MySQL Workbench")
-
-
-## 3.	Connecting to a MySQL server
-
-## 3.1	Accessing the MySQL server on localhost (from the lab's PCs)
-
-(NOTE: If you're working on your laptop skip this section and follow the instructions from ANNEX 1 and jumpt to section 4)
-
-On each lab's PC you will find a MySQL Community Server installed and awaiting connections (on 127.0.0.1:3306). In order to interact with the server, execute the MySQL Workbench application: (Linux) Click the launcher (top-left corner of the screen) and select ‘workbench’. (Windows) Start menu, MySQL folder. 
+In order to interact with the server, execute the MySQL Workbench application.
 
 Click the "+" option (new connection) and specify the connection parameters: 
 
 * host: 127.0.0.1
 * port: 3306 (default∫)
-* user: edcav
-* password: edcav
+* user: drcav
+* password: drcav1
 * schema: (leave it blank)
 
 ## 4. Selecting the database to work with
 
 Before start issuing SQL commands, you need to select a database. From a query window of the MySQL Workbench type:
 
-	USE edcav;
+	USE drcav;
 
 ## 5. Creating tables, first examples
 
@@ -218,7 +192,7 @@ By the way, there's an alternative syntax for INSERTs that you can try:
 
 ### About foreign key errors (errno = 105)
 
-If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the EDCAV server). If you cannot find the way to solve the problem you may ask the lab teacher (she/he have the enough privileges to execute that query).
+If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the drcav server). If you cannot find the way to solve the problem you may ask the lab teacher (she/he have the enough privileges to execute that query).
 
 
 ## 9. Basic SQL queries
@@ -323,15 +297,11 @@ The files creates.sql, inserts.sql and queries.sql have to be delivered in a sin
 
 
 
-## ANNEX 1.	Alternative setup with your own computer
+## ANNEX 1.	Alternative setup with Docker
 
-### A1.1 Install MySQL Workbench
+### Install and launch a MySQL server
 
-Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
-
-### A1.2 Install and launch a MySQL server
-
-If you don't have Docker you need to install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). If you have Docker you can just pull and run an msql-server image:
+If you have Docker you can just pull and run an msql-server image:
 
 	docker pull mysql/mysql-server:latest
 	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
@@ -342,31 +312,25 @@ In order to know which root password was given do (wait some seconds before):
 
 And take notice of the root password. 
 
-### A1.3 Create a non-root user and a database
+### Create a non-root user and a database
 
-By default you cannot access the server with the root user using MySQL Workbench. So you need to perform the following step using the command-line client. If your installed MySQL with Docker let's execute:
+Let's execute:
 
 	docker exec -it drcav1 mysql -uroot -p
 
-In case you installed MySQL without Docker then you just execute in the terminal (for both Linux and Windows):
-
-	mysql -u root -p
-
 Once you see the client's "mysql>" prompt type:
 
-	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'edcav';
-	mysql>CREATE DATABASE IF NOT EXISTS edcav1;
-	mysql>CREATE USER 'edcav1'@'%' IDENTIFIED BY 'edcav';
-	mysql>GRANT ALL PRIVILEGES ON edcav1.* to 'edcav1'@'%';
+	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'drcav';
+	mysql>CREATE DATABASE IF NOT EXISTS drcav1;
+	mysql>CREATE USER 'drcav1'@'%' IDENTIFIED BY 'drcav';
+	mysql>GRANT ALL PRIVILEGES ON drcav1.* to 'drcav1'@'%';
 	mysql>exit;
 
-### A1.4 Connect with MySQL Workbench
+### Connect with MySQL Workbench
 
 Launch MySQL Workbench and connect to the server:
 
 ![alt text](mysqlworkbench_docker.png "MySQL Workbench")
-
-You can now jump to section 4.
 
 
 
