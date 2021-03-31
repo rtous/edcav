@@ -1,4 +1,4 @@
-# Recommendations if you want to do the DRCAV lab assignments on your own computer 
+# Setup your computer for doing the DRCAV hands on and lab assignments
 
 DRCAV lab assignments are designed to work on Linux (Ubuntu). 
 
