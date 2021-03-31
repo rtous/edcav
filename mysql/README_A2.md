@@ -8,57 +8,20 @@ This session provides an introduction to (Relational) Database Management System
 
 MySQL is a [relational database management system (RDBMS)](https://en.wikipedia.org/wiki/Relational_database#RDBMS), a software that enables users manage [relational databases](https://en.wikipedia.org/wiki/Relational_database#RDBMS) and query them with the [SQL](https://en.wikipedia.org/wiki/SQL) language. A relational database is organized into relations (tables), tuples (rows) and attributes (columns). 
 
-## 2. Setup
+## 2. Required setup
 
-Read [this](../yourmachine.md) to setup your computer first.
+The setup required to be able to perform the diferent exercises are:
 
-### 2.1 Install MySQL Workbench
+1. MySQL server installed
+2. MySQL Workbench installed
+3. A database already created
 
-Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
+On the lab's PCs all these requirements are already satisfied. To work on the lab's PCs you should:
 
-### 2.2 Install and launch a MySQL server
+- Boot the PC with the Linux image (preferable) or Windows 
+- Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
-Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
-
-#### (optional) with Docker
-
-	If you use Docker you can just pull and run an msql-server image:
-
-		docker pull mysql/mysql-server:latest
-		docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
-
-	In order to know which root password was given do (wait some seconds before):
-
-		docker logs drcav1 
-
-	And take notice of the root password. 
-
-### 2.3 Create a non-root user and a database
-
-By default you cannot access the server with the root user using MySQL Workbench. So you need to perform the following step using the command-line client. 
-
-In case you installed MySQL without Docker then you just execute in the terminal:
-
-	mysql -u root -p
-
-Once you see the client's "mysql>" prompt type:
-
-	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'edcav';
-	mysql>CREATE DATABASE IF NOT EXISTS edcav1;
-	mysql>CREATE USER 'edcav1'@'%' IDENTIFIED BY 'edcav';
-	mysql>GRANT ALL PRIVILEGES ON edcav1.* to 'edcav1'@'%';
-	mysql>exit;
-
-If your installed MySQL with Docker let's execute:
-
-	docker exec -it drcav1 mysql -uroot -p
-
-### 2.4 Connect with MySQL Workbench
-
-Launch MySQL Workbench and connect to the server:
-
-![alt text](mysqlworkbench_docker.png "MySQL Workbench")
-
+The following sections assume that you are working on the lab's PC's. If you prefer to work with your laptop let's take a look to ANNEX 1.
 
 ## 3.	Connecting to a MySQL server
 
