@@ -18,9 +18,9 @@ Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
 ### 2.2 Install and launch a MySQL server
 
-*NOTE: See ANNEX 1 if you want to launch MySQL server from a Docker container*
-
 Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/).  
+
+*NOTE: See ANNEX 1 if you want to launch MySQL server from a Docker container*
 
 ### 2.3 Create a non-root user and a database
 
@@ -47,7 +47,7 @@ Click the "+" option (new connection) and specify the connection parameters:
 * host: 127.0.0.1
 * port: 3306 (default∫)
 * user: drcav
-* password: drcav1
+* password: drcav
 * schema: (leave it blank)
 
 ## 4. Selecting the database to work with
