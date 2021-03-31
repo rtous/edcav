@@ -20,18 +20,18 @@ Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
 Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/). 
 
-#### (optional) with Docker
+*(optional) with Docker*
 
-	If you use Docker you can just pull and run an msql-server image:
+*If you use Docker you can just pull and run an msql-server image:*
 
-		docker pull mysql/mysql-server:latest
-		docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
+	docker pull mysql/mysql-server:latest
+	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
 
-	In order to know which root password was given do (wait some seconds before):
+*In order to know which root password was given do (wait some seconds before):*
 
-		docker logs drcav1 
+	docker logs drcav1 
 
-	And take notice of the root password. 
+And take notice of the root password. 
 
 ### 2.3 Create a non-root user and a database
 
