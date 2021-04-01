@@ -2,7 +2,7 @@
 
 ## Setup
 
-[Prepare your laptop for the DRCAV hands-on and labs](./yourmachine.md)
+[Prepare your laptop for the DRCAV Part 2 labs/project](./yourmachine.md)
 
 ## Hands-on
 
