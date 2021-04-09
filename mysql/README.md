@@ -33,9 +33,9 @@ Execute in the terminal:
 Once you see the client's "mysql>" prompt type:
 
 	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'drcav';
-	mysql>CREATE DATABASE IF NOT EXISTS drcav1;
-	mysql>CREATE USER 'drcav1'@'%' IDENTIFIED BY 'drcav';
-	mysql>GRANT ALL PRIVILEGES ON drcav1.* to 'drcav1'@'%';
+	mysql>CREATE DATABASE IF NOT EXISTS drcav;
+	mysql>CREATE USER 'drcav'@'%' IDENTIFIED BY 'drcav';
+	mysql>GRANT ALL PRIVILEGES ON drcav.* to 'drcav'@'%';
 	mysql>exit;
 
 ## 3. Connecting to a MySQL server
@@ -304,11 +304,11 @@ The files creates.sql, inserts.sql and queries.sql have to be delivered in a sin
 If you have Docker you can just pull and run an msql-server image:
 
 	docker pull mysql/mysql-server:latest
-	docker run --name=drcav1 -d -p 3306:3306 mysql/mysql-server:latest
+	docker run --name=drcav -d -p 3306:3306 mysql/mysql-server:latest
 
 In order to know which root password was given do (wait some seconds before):
 
-	docker logs drcav1 
+	docker logs drcav 
 
 And take notice of the root password. 
 
@@ -316,14 +316,14 @@ And take notice of the root password.
 
 Let's execute:
 
-	docker exec -it drcav1 mysql -uroot -p
+	docker exec -it drcav mysql -uroot -p
 
 Once you see the client's "mysql>" prompt type:
 
 	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'drcav';
-	mysql>CREATE DATABASE IF NOT EXISTS drcav1;
-	mysql>CREATE USER 'drcav1'@'%' IDENTIFIED BY 'drcav';
-	mysql>GRANT ALL PRIVILEGES ON drcav1.* to 'drcav1'@'%';
+	mysql>CREATE DATABASE IF NOT EXISTS drcav;
+	mysql>CREATE USER 'drcav'@'%' IDENTIFIED BY 'drcav';
+	mysql>GRANT ALL PRIVILEGES ON drcav.* to 'drcav'@'%';
 	mysql>exit;
 
 ### Connect with MySQL Workbench
