@@ -16,28 +16,19 @@ Read [this](../yourmachine.md) to setup your computer first.
 
 Install MySQL Workbench from [here](https://www.mysql.com/products/workbench/).
 
-### 2.2 Install and launch a MySQL server with Docker
+### 2.2 Install and launch a MySQL server
 
-*NOTE: if you want to do it without Docker follow [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/).*
+Install a MySQL server following [this instructions](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/).  
 
-#### Pull and run an msql-server image
+*NOTE: See ANNEX 1 if you want to launch MySQL server from a Docker container*
 
-On the Ubuntu or Mac terminal run the following to pull and run an msql-server image:
+### 2.3 Create a non-root user and a database
 
-	docker pull mysql/mysql-server:latest
-	docker run --name=drcav -d -p 3306:3306 mysql/mysql-server:latest
+By default you cannot access the server with the root user using MySQL Workbench. So you need to perform the following step using the command-line client. 
 
-In order to know which root password was given do (wait some seconds before):
+Execute in the terminal:
 
-	docker logs drcav 
-
-And take notice of the root password. 
-
-#### Create a non-root user and a database
-
-Let's execute:
-
-	docker exec -it drcav mysql -uroot -p
+	mysql -u root -p
 
 Once you see the client's "mysql>" prompt type:
 
@@ -47,19 +38,17 @@ Once you see the client's "mysql>" prompt type:
 	mysql>GRANT ALL PRIVILEGES ON drcav.* to 'drcav'@'%';
 	mysql>exit;
 
-## 3. Connecting to a MySQL server with MySQL Workbench
+## 3. Connecting to a MySQL server
 
-Launch MySQL Workbench. Click the MySQL Connections icon from the sidebar (the dolphin). Click the [+] icon.
+In order to interact with the server, execute the MySQL Workbench application.
 
-Connection parameters: 
+Click the "+" option (new connection) and specify the connection parameters: 
 
 * host: 127.0.0.1
-* port: 3306 (default)
+* port: 3306 (default∫)
 * user: drcav
 * password: drcav
 * schema: (leave it blank)
-
-![alt text](mysqlworkbench_docker.png "MySQL Workbench")
 
 ## 4. Selecting the database to work with
 
@@ -308,6 +297,40 @@ The files creates.sql, inserts.sql and queries.sql have to be delivered in a sin
 
 
 
+## ANNEX 1.	Alternative setup with Docker
+
+### Install and launch a MySQL server
+
+If you have Docker you can just pull and run an msql-server image:
+
+	docker pull mysql/mysql-server:latest
+	docker run --name=drcav -d -p 3306:3306 mysql/mysql-server:latest
+
+In order to know which root password was given do (wait some seconds before):
+
+	docker logs drcav 
+
+And take notice of the root password. 
+
+### Create a non-root user and a database
+
+Let's execute:
+
+	docker exec -it drcav mysql -uroot -p
+
+Once you see the client's "mysql>" prompt type:
+
+	mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'drcav';
+	mysql>CREATE DATABASE IF NOT EXISTS drcav;
+	mysql>CREATE USER 'drcav'@'%' IDENTIFIED BY 'drcav';
+	mysql>GRANT ALL PRIVILEGES ON drcav.* to 'drcav'@'%';
+	mysql>exit;
+
+### Connect with MySQL Workbench
+
+Launch MySQL Workbench and connect to the server:
+
+![alt text](mysqlworkbench_docker.png "MySQL Workbench")
 
 
 

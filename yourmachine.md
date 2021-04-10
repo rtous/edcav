@@ -25,4 +25,4 @@ We will use Docker containers for some tasks. Docker containers are lightweight 
 
 * Linux and Mac users: follow the [official installation istructions](https://docs.docker.com/get-docker/).
 
-* Windows users: following [this instructions](./docker_wsl2.md).
+* Windows users: we provide a [simplified instructions](./docker_wsl2.md).
