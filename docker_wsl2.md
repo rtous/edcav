@@ -17,7 +17,7 @@ If you still haven't install WSL2 follow instructions [here](./wsl.md)
 
 ## Step 2. Install and configure Docker (in Windows)
 
-1. Download the Windows Docker installer from [here](https://www.docker.com/get-started).
+1. Download the Windows Docker Desktop installer from [here](https://www.docker.com/get-started).
 
 2. Open Docker settings/Resources/WSL Integration and enable "integration with additional distros: Ubuntu-20.04"
 
