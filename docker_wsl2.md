@@ -1,5 +1,7 @@
 # Using Docker within (WSL2) Ubuntu within Windows 
 
+**NOTE: If this doesn't help you try with [this](https://docs.docker.com/docker-for-windows/install/)**
+
 ## Step 1. Ensure that you have WSL2 for Windows installed
 
 Open a PowerShell terminal and run:
