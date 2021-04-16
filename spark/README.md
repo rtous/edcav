@@ -42,13 +42,11 @@ Create a directory and enter it:
 
 We need to download the Spark environment. To do that, we can just execute the following command:
 
-	$ wget https://archive.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
-
-Alternatively (if you want a different version or you are a Windows user) you can go to https://spark.apache.org/ and download the files. In all of this hands-on we will work with Spark v2.2.1.  Important: you have to download one of pre-built version in "Choose a package type" section (for instance we tested this hands-on with spark-2.2.1-bin-hadoop2.7).
+	wget https://archive.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
 
 Once we have the tarball file, we need to uncompress it:
 
-	$ tar -xvzf spark-2.2.1-bin-hadoop2.7.tgz
+	tar -xvzf spark-2.2.1-bin-hadoop2.7.tgz
 
 <!--
 Then, to avoid a problem binding to localhost, execute the following:
@@ -57,7 +55,7 @@ Then, to avoid a problem binding to localhost, execute the following:
 -->
 Let’s now execute the interactive Python shell:
 
-	$ spark-2.2.1-bin-hadoop2.7/bin/pyspark
+	spark-2.2.1-bin-hadoop2.7/bin/pyspark
 
 You should see this:
 
@@ -111,7 +109,9 @@ If you take a look to example1.txt you will see the following content (accents r
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
 	astillero, adarga antigua, rocín flaco y galgo corredor.
 
-Enter the Python shell again as we did before.
+Enter the Python shell again as we did before:
+
+	spark-2.2.1-bin-hadoop2.7/bin/pyspark
 
 Let's first define a function that will help us displaying things:
 
@@ -355,14 +355,14 @@ A .txt file containing the output of all the commands have to be delivered throu
 
 ### A1.1 Setup with Docker
 
-In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker.md), but adding the port 4040 to the port mappings. Additionally, you should install some dependencies:
+In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker.md), but adding the port 4040 to the port mappings. Additionally, you should install some dependencies (once you are within the container):
 
-	root@813847d78b39:/# apt-get update
-	root@813847d78b39:/# apt-get install -y python
-	root@813847d78b39:/# apt-get install -y python-pip
-	root@813847d78b39:/# pip install numpy
-	root@813847d78b39:/# apt-get install -y openjdk-8-jre
-	root@813847d78b39:/# apt-get install -y wget
+	apt-get update
+	apt-get install -y python
+	apt-get install -y python-pip
+	pip install numpy
+	apt-get install -y openjdk-8-jre
+	apt-get install -y wget
 
 ### A1.2 Windows direct installation
 
