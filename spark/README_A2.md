@@ -13,24 +13,12 @@ The setup required to be able to perform the diferent exercises are:
 2. Python 2.7 or higher
 3. Python's numpy package installed
 
-The following instructions will work for Ubuntu (also on Windows WSL2) and macOS. Regardless of the platform, check ANNEX A1.1 if you prefer working from within an Ubuntu Docker container to avoid installing things in you system.
+On the lab's PCs all these requirements are already satisfied. To work on the lab's PCs you should:
 
-*NOTE: Directly working on Windows, without WSL2, is possible in theory. Check ANNEX A1.2*
+- Boot the PC with the Linux image (preferable) or Windows 
+- Log in with the user/password that you use for Atenea (or, in case it does not work, with (invitado, invitado) on Linux or (A2S105-??\invitado, without password) on Windows)
 
-To check your setup type:
-
-	java –version
-	python -V
-	python
-	>>> import numpy
-
-On Ubuntu you can install java with (on macOs follow this [instructions](https://java.com/en/download/help/mac_install.html)):
-
-	sudo apt-get install -y openjdk-8-jre
-
-You can install numpy with:
-
-	pip install numpy
+The following sections assume that you are working on the lab's PC's. If you prefer to work with your laptop let's take a look to ANNEX 1.
 
 ## 3.	Install Spark
 
@@ -365,11 +353,11 @@ And split the data into trainingData and testData.
 A .txt file containing the output of all the commands have to be delivered through the proper section within http://atenea.upc.edu
 
 
-## ANNEX 1.	Alternative setups
+## ANNEX 1.	Alternative setup with your own computer
 
-### A1.1 Setup with Docker
+### A1.1 With Docker
 
-In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker.md), but adding the port 4040 to the port mappings. Additionally, you should install some dependencies:
+In order to perform this lab assignment over Docker you could run an Ubuntu container as explained [here](../docker_ubuntu.md), but adding the port 4040 to the port mappings. Additionally, you should install some dependencies:
 
 	root@813847d78b39:/# apt-get update
 	root@813847d78b39:/# apt-get install -y python
@@ -378,9 +366,24 @@ In order to perform this lab assignment over Docker you could run an Ubuntu cont
 	root@813847d78b39:/# apt-get install -y openjdk-8-jre
 	root@813847d78b39:/# apt-get install -y wget
 
-### A1.2 Windows direct installation
+You can then jump to section 3.
 
-First you need to be sure that you meet the following dependencies (we don't provide help for that):
+### A1.2 Direct installation (without Docker)
+
+#### Linux, Mac and WSL users 
+
+If you prefer to just install everything in your OS let's first ensure that you have the required dependencies (Java 8, Python, numpy):
+
+	$ java –version
+	$ python -V
+	$ python
+	>>> import numpy
+
+Then you can jump to section 3. 
+
+#### Windows users 
+
+Running Spark on Windows is slightly more difficult. First you need to be sure that you meet the following dependencies (we don't provide help for that):
 
 1. Java 6 or higher
 2. Python 2.7 or higher
