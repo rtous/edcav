@@ -8,24 +8,28 @@ This session is intended to help the student to get started with MongoDB, a NoSQ
 
 ### 2.1 Install a local MongoDB server with Docker
 
-*NOTE: If you don't have Docker try installing it (instructions[here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to subsection 2.2.*
+*NOTE: If you don't have Docker try installing it (instructions[here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to section 3.*
 
-Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory. In Ubuntu:
+In Ubuntu:
+<!--
+Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory. 
 
 	mkdir $HOME/drcav
 
-<!--
+
 * /Users/YOUR_USER_NAME/drcav in Mac
 * /home/YOUR_USER_NAME/drcav in Linux 
 * C:\Users\YOUR_USER_NAME\drcav in Windows
 
 On Mac and Linux you can check your home directory by typing "echo $HOME" in a terminal. On Windows you can type "echo %cd%" in a terminal.
--->
 
-Now let's pull and run a MongoDB Docker container:
+Let's pull and run a MongoDB Docker container:
 
 	docker run -it --name=mongo -v $HOME/drcav:/drcav -p 27017:27017 -d mongo
+-->
+Let's pull and run a MongoDB Docker container:
 
+	docker run -it --name=mongo -p 27017:27017 -d mongo
 <!--
 On Windows 10, if you are running Docker Desktop, use a typical Windows path, e.g.:
 
