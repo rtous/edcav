@@ -216,12 +216,14 @@ Exit the MongoDB shell
 
 ## 7. Accessing MongoDB from Python code (OPTIONAL)
 
-Let's first install the required dependencies:
+Let's first install the required dependencies (in Ubuntu):
 
-	root@813847d78b39:/# apt-get update
-	root@813847d78b39:/# apt-get install -y python
-	root@813847d78b39:/# apt-get install -y python-pip
-	root@813847d78b39:/# pip install pymongo
+	apt-get update
+	apt-get install -y python
+	apt-get install -y python-pip
+	python3 -m venv myvenv
+	source myvenv/bin/activate
+	pip install pymongo
 
 Let's now create the program that will send requests to the MongoDB server (a client program). You can do it from the terminal (from the drcav directory):
 	
@@ -234,6 +236,12 @@ Now edit the file and copy there the following code:
 	myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 	mydb = myclient["drcavdb"]
 	print("You are successfully connected to MongoDB!")
+
+*NOTE: If you are on Windows with WSL2 see [this](../wsl.md) to know how to edit files*
+
+Check if it works:
+	
+	python MyMongoClient
 
 Let's extend our code to query our "photos" collection:
 
