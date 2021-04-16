@@ -31,10 +31,8 @@ Let's pull and run a MongoDB Docker container:
 
 	docker run -it --name=mongo -p 27017:27017 -d mongo
 
-*If you previously launched the container you can stop and remove it this way:
+*NOTE: If you have problems because you already created the container see [this guide](../docker_userguide.md) to know how to stop and delete a container* 
 
-	docker stop mongo
-	docker rm mongo*
 <!--
 On Windows 10, if you are running Docker Desktop, use a typical Windows path, e.g.:
 

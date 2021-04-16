@@ -1,13 +1,5 @@
 # Some useful Docker commands
 
-Exit a container shell:
-
-    CTRL+P+Q
-
-Reenter a conteiner shell:
-
-    docker exec -it pti bash
-
 List docker images in the machine:
 
     docker images
@@ -18,19 +10,31 @@ List running/stopped containers:
 
 Stop a container:
 
-    docker stop pti
+    docker stop CONTAINER_NAME_OR_ID
 
 Start a stopped container:
 
-    docker start pti
+    docker start CONTAINER_NAME_OR_ID
 
 Remove a container:
 
-    docker rm pti
+    docker rm CONTAINER_NAME_OR_ID
 
 Remove an image:
 
-    docker rmi animage
+    docker rmi IMAGE_ID
+
+Enter a container shell:
+
+    docker exec -it CONTAINER_NAME_OR_ID bash
+
+Exit a container shell:
+
+    CTRL+P+Q
+
+Remove everything:
+
+	docker system prune -a
 
 Copy a file from a container to the host:
 
