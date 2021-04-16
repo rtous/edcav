@@ -8,7 +8,7 @@ This session is intended to help the student to get started with MongoDB, a NoSQ
 
 ### 2.1 Install a local MongoDB server with Docker
 
-*NOTE: If you don't have Docker try installing it (instructions[here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to section 3.*
+*NOTE: If you don't have Docker try installing it (instructions [here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to section 3.*
 
 In Ubuntu:
 <!--
@@ -48,15 +48,16 @@ On Windows 10 Home (Docker Toolbox):
 Check if the container is running this way:
 
 	docker ps -a
-
+<!--
 If you enter a wrong command by mistake you can delete the container this way:
 
 	docker stop mongo
 	docker rm mongo
+-->
 
 ## 3 Connecting with a client: MongoDB shell and MongoDB Compass
 
-MongoDB comes with a shell client. On Docker you can execute it this way:
+MongoDB comes with a shell client. If you installed MongoDB with Docker you can execute it this way:
 
 	docker exec -it mongo mongo
 
