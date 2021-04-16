@@ -203,8 +203,7 @@ By the way, there's an alternative syntax for INSERTs that you can try:
 
 ### About foreign key errors (errno = 105)
 
-If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS; However, you need certain privileges to do that (you have them on your local MySQL but not on the drcav server). If you cannot find the way to solve the problem you may ask the lab teacher (she/he have the enough privileges to execute that query).
-
+If you find foreign key errors you can get more information with SHOW ENGINE INNODB STATUS (you need certain privileges to do that but you should have them on your local MySQL server).
 
 ## 9. Basic SQL queries
 Now that you have tables and rows you can execute the SQL query commands that you have learned during the theory classes. Try executing the following queries (you don't need to deliver nothing about this):

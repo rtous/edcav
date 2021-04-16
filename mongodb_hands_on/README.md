@@ -4,35 +4,41 @@
 
 This session is intended to help the student to get started with MongoDB, a NoSQL (document-oriented) database management system.
 
-## 2.	Install MongoDB
+## 2. Install MongoDB
 
-### 2.1 Install a local MongoDB server
+### 2.1 Install a local MongoDB server with Docker
 
-If you don't have Docker you need to install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/). If you have Docker you can just pull and run an MongoDB server image (instructions for installing Docker [here](../docker.md)). 
+*NOTE: If you don't have Docker try installing it (instructions[here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to subsection 2.2.*
 
-#### Install a MongoDB server with Docker
+Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory. In Ubuntu:
 
-Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory:
+	mkdir $HOME/drcav
 
+<!--
 * /Users/YOUR_USER_NAME/drcav in Mac
-* /home/YOUR_USER_NAME/drcav in Linux
+* /home/YOUR_USER_NAME/drcav in Linux 
 * C:\Users\YOUR_USER_NAME\drcav in Windows
 
 On Mac and Linux you can check your home directory by typing "echo $HOME" in a terminal. On Windows you can type "echo %cd%" in a terminal.
+-->
 
-Now let's pull and run a MongoDB Docker container (replace YOUR_PATH with the local path to the drcav directory):
+Now let's pull and run a MongoDB Docker container:
 
-	docker run -it --name=mongo -v YOUR_PATH/drcav:/drcav -p 27017:27017 -d mongo
+	docker run -it --name=mongo -v $HOME/drcav:/drcav -p 27017:27017 -d mongo
 
-On Windows 10, if you are running Docker Desktop (not Docker Toolbox), use a typical Windows path, e.g.:
+<!--
+On Windows 10, if you are running Docker Desktop, use a typical Windows path, e.g.:
 
 	docker run -it --name=mongo -v C:\Users\YOUR_USER_NAME\drcav:/drcav -p 27017:27017 -d mongo
+-->
 
+<!--
 On Windows 10 Home (Docker Toolbox):
 
 	docker run -it --name=mongo -v //c/Users/YOUR_USER_NAME/drcav:/drcav -p 27017:27017 -d mongo
+-->
 
-This time you won't see the container's bash prompt (we are not exectuing "bash" at the end of the command), but the container should be running in the background. You can check if the container is running this way:
+Check if the container is running this way:
 
 	docker ps -a
 
@@ -41,11 +47,14 @@ If you enter a wrong command by mistake you can delete the container this way:
 	docker stop mongo
 	docker rm mongo
 
-### 2.2 Connecting with a client: MongoDB shell and MongoDB Compass
+## 3 Connecting with a client: MongoDB shell and MongoDB Compass
 
 MongoDB comes with a shell client. On Docker you can execute it this way:
 
-	docker exec -it mongo bash
+	docker exec -it mongo mongo
+
+<!--
+	docker exec -it mongo bash	
 
 Then you should see the typical Docker prompt, something like this:
 
@@ -55,14 +64,16 @@ Let's now run the MongoDB shell:
 
 	root@813847d78b39:/# mongo
 
-If you don't work over Docker you can run "mongo" directly from a terminal.
+-->
+
+*NOTE: If you don't work over Docker you can run "mongo" directly from a terminal.*
 
 We will work on the shell, but it will be convenient to install MongoDB Compass, a GUI. You can dowload it here [here](https://www.mongodb.com/download-center/compass). Using MongoDB Compass is optional. Once you have Compass installed you have to enter this connection URL:
 	
 	mongodb://localhost:27017
 
 
-## 3. Selecting the database to work with
+## 4. First commands 
 
 From the MongoDB shell, the following will inform you about the current active database:
 
@@ -78,7 +89,7 @@ you can get info about the new database this way:
 
 If you have MongoDB Compass you can check that the drcavdb database has been created.
 
-## 4. Working with collections
+## 5. Working with collections
 
 The following creates a new collection with one document:
 
@@ -159,7 +170,7 @@ On the shell you can remove all the documents this way:
 
 	> db.photos.remove({})
 
-## 5. Querying
+## 6. Querying
 
 On the shell you can query all documents and pretty print them this way:
 
@@ -195,7 +206,7 @@ Exit the MongoDB shell
 
 	> exit
 
-## 6. Accessing MongoDB from Python code (OPTIONAL)
+## 7. Accessing MongoDB from Python code (OPTIONAL)
 
 Let's first install the required dependencies:
 
