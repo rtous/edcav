@@ -9,8 +9,6 @@ This session is intended to help the student to get started with MongoDB, a NoSQ
 ### 2.1 Install a local MongoDB server with Docker
 
 *NOTE: If you don't have Docker try installing it (instructions [here](../docker.md)). If you are not able to use Docker you can install a MongoDB server following [this instructions](https://docs.mongodb.com/manual/installation/) and jump to section 3.*
-
-In Ubuntu:
 <!--
 Let's first setup a local directory to be shared with the Docker container. Let's create a "drcav" directory in your home directory. 
 
@@ -216,20 +214,29 @@ Exit the MongoDB shell
 
 ## 7. Accessing MongoDB from Python code (OPTIONAL)
 
-Let's first install the required dependencies (in Ubuntu):
+Let's first create a local directory named "mongodbclient" in your home directory:
 
-	apt-get update
-	apt-get install -y python
-	apt-get install -y python-pip
-	python3 -m venv myvenv
+	cd $HOME
+	mkdir mongodbclient 
+
+Check the absolute location of the folder (this will help you to find things later).
+
+	pwd 
+
+The following assumes that you have Python installed (as happens by default in Ubuntu/macOS). You can check that with (from the Ubuntu/macOS terminal):
+
+	python --version
+
+It's recommended to work within a virtual environment (this way the python libraries will not be mixed with the ones in your system). It's as easy as doing (from within the mongodbclient folder):
+
+	python -m venv myvenv
 	source myvenv/bin/activate
+
+Let's install the required python library for working with MongoDB: 
+
 	pip install pymongo
 
-Let's now create the program that will send requests to the MongoDB server (a client program). You can do it from the terminal (from the drcav directory):
-	
-	touch MyMongoClient.py
-
-Now edit the file and copy there the following code:
+Let's now create a program that will send requests to the MongoDB server (a client program). Edit a new file named MyMongoClient.py with a text editor. In case you are working on Windows with WSL2 see [this](../wsl.md) to know how to edit files*.
 
 	import pymongo
 
@@ -237,13 +244,13 @@ Now edit the file and copy there the following code:
 	mydb = myclient["drcavdb"]
 	print("You are successfully connected to MongoDB!")
 
-*NOTE: If you are on Windows with WSL2 see [this](../wsl.md) to know how to edit files*
+Save the file within the "mongodbclient" folder. If you have problems locating the folder with the editor ask the instructor.
 
-Check if it works:
+Go back into the terminal and run the program:
 	
 	python MyMongoClient
 
-Let's extend our code to query our "photos" collection:
+Let's extend our code to query the "photos" collection:
 
 	import pymongo
 
