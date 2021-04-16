@@ -218,6 +218,7 @@ Let's first create a local directory named "mongodbclient" in your home director
 
 	cd $HOME
 	mkdir mongodbclient 
+	cd mongodbclient
 
 Check the absolute location of the folder (this will help you to find things later).
 

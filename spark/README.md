@@ -23,6 +23,7 @@ To check your setup type:
 	python -V
 	python
 	>>> import numpy
+	>>> quit()
 
 On Ubuntu you can install java with (on macOs follow this [instructions](https://java.com/en/download/help/mac_install.html)):
 
@@ -34,7 +35,12 @@ You can install numpy with:
 
 ## 3.	Install Spark
 
-First of all, we need to download the Spark environment. To do that, we can just execute the following command:
+Create a directory and enter it:
+
+	mkdir $HOME/sparklab
+	cd $HOME/sparklab
+
+We need to download the Spark environment. To do that, we can just execute the following command:
 
 	$ wget https://archive.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz
 
@@ -44,10 +50,11 @@ Once we have the tarball file, we need to uncompress it:
 
 	$ tar -xvzf spark-2.2.1-bin-hadoop2.7.tgz
 
+<!--
 Then, to avoid a problem binding to localhost, execute the following:
 
 	echo "SPARK_LOCAL_IP=127.0.0.1" > spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
-
+-->
 Let’s now execute the interactive Python shell:
 
 	$ spark-2.2.1-bin-hadoop2.7/bin/pyspark
@@ -85,21 +92,20 @@ Otherwise, let's copy the template file and add "SPARK_LOCAL_IP=127.0.0.1" somew
 
 	cp spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh.template spark-2.2.1-bin-hadoop2.7/conf/spark-env.sh
 
-## 3.2 Open a second terminal
+## 4. Download the example data
 
-It will be convenient to have two terminals opened at the same time. On the lab's PCs you just need to type CTRL+ALT+T. If you are working with Docker you need to open a second terminal in your laptop and run:
+From within $HOME/sparklab type:
 
-	docker exec -it drcav bash
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example1.txt
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example2.txt
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example3.txt
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example4.txt
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example5.txt
+	wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example6.txt
 
-## 4.	Example “word count” application
+## 5.	Example “word count” application
 
-Download example1.txt:
-
- 	(you may find convenient to open another terminal window)
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example1.txt
-
-which has the following content (accents removed to avoid encoding problems):
+If you take a look to example1.txt you will see the following content (accents removed to avoid encoding problems):
 
 	En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
 	No ha mucho tiempo que vivía un hidalgo de los de lanza en
@@ -160,11 +166,7 @@ This may seem too complicated to count a bunch of words. The advantage is that e
 
 ## 5.	Simple clustering example (K-Means)
 
-Download example2.txt :
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example2.txt
-
-which has the following content:
+The file example2.txt has the following content:
 
 	1.2 2.1
 	1.1 2.2
@@ -214,11 +216,7 @@ We can compute Within Set Sum of Squared Error (WSSSE). You can reduce this erro
 
 ## 6.	Working with text
 
-Download example3.txt :
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example3.txt
-
-which has the following content:
+The file example3.txt has the following content:
 
 	messi barcelona madrid instagram
 	barcelona paella playa sangria instagram
@@ -260,11 +258,7 @@ Given a new document, we can check to which cluster it belongs:
 
 ## 7.	Working with JSON
 
-Download example4.txt :
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example4.txt
-
-which has the following content (JSON data representing tags for pictures):
+The file example4.txt has the following content (JSON data representing tags for pictures):
 
 	{"tags":["messi","barcelona","madrid"]}
 	{"tags":["barcelona","paella","playa","sangria"]}
@@ -289,11 +283,7 @@ Once we have an array with the data, we can repeat the same steps what we did in
 
 ## 8.	Simple regression example (Linear Regression)
 
-Download example5.txt :
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example5.txt
-
-which has the following content:
+The example5.txt has the following content:
 
 	4.49 1:2.45
 	6.25 1:3.83
@@ -331,11 +321,7 @@ We can summarize the model over the training set and print out some metrics:
 
 ## 9.	Simple classification example (Linear SVM)
 
-Download example6.txt :
-
-	$ wget https://raw.githubusercontent.com/rtous/edcav/master/spark/example6.txt
-
-which has the following content:
+The file example6.txt has the following content:
 
 	0 1:1.45 2:1.45
 	0 1:1.83 2:1.45
