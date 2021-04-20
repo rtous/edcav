@@ -255,7 +255,7 @@ Save the file within the "mongodbclient" folder. If you have problems locating t
 
 Go back into the terminal and run the program:
 	
-	python MyMongoClient
+	python MyMongoClient.py
 
 Let's extend our code to query the "photos" collection:
 
