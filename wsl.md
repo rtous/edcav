@@ -21,10 +21,11 @@ a. Run the following from within WSL:
 ```
 	explorer.exe .
 ```
-b. From the File Explorer access the following path:
+b. From the File Explorer access the following path (click in the white area of the file address bar):
 ```
 	 \\wsl$
 ```
+It's a good idea to move the Ubuntu folder into the Quick Access ("Acceso Rápido") toolbar (just drag and drop the Ubuntu icon there).
 
 ## ANNEX 2. Editing the code with a text editor
 

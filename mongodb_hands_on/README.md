@@ -228,16 +228,22 @@ The following assumes that you have Python installed (as happens by default in U
 
 	python --version
 
+In case Python it's not installed do the following:
+
+	sudo apt-get update
+	sudo apt-get install -y python
+	sudo apt-get install -y python3-venv
+
 It's recommended to work within a virtual environment (this way the python libraries will not be mixed with the ones in your system). It's as easy as doing (from within the mongodbclient folder):
 
-	python -m venv myvenv
+	python3 -m venv myvenv
 	source myvenv/bin/activate
 
 Let's install the required python library for working with MongoDB: 
 
 	pip install pymongo
 
-Let's now create a program that will send requests to the MongoDB server (a client program). Edit a new file named MyMongoClient.py with a text editor. In case you are working on Windows with WSL2 see [this](../wsl.md) to know how to edit files*.
+Let's now create a program that will send requests to the MongoDB server (a client program). Edit a new file named MyMongoClient.py with a text editor. *In case you are working on Windows with WSL2 see ANNEX 1 and ANNEX 2 of [this document](../wsl.md) to know how to edit files*.
 
 	import pymongo
 
@@ -266,4 +272,3 @@ Let's extend our code to query the "photos" collection:
 ## 13.	Delivery
 
 Deliver a text file with the output of the different commands (or some screenshots within a .pdf file) through the proper section within http://atenea.upc.edu. 
-
